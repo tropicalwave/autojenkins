@@ -1,0 +1,14 @@
+version: "3.1"
+
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    ports:
+      - "8080:8080"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-worker

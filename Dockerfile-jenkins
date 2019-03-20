@@ -1,0 +1,22 @@
+FROM jenkins/jenkins:lts-alpine
+
+ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+
+COPY plugins/plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt 
+
+USER root
+COPY ssh/ /ssh
+COPY init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
+COPY job/jobs.groovy /usr/share/jenkins/ref/jobs.groovy
+COPY project/ /tmp/localrepo
+RUN chown -R 1000:1000 /ssh /tmp/localrepo
+USER jenkins
+
+RUN cd /tmp/localrepo && \
+	git init && \
+	git config --global user.name "prename surname" && \
+	git config --global user.email "me@localhost" && \
+	git add * && \
+	git commit -m "initial commit"
+
