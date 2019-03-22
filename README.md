@@ -6,6 +6,6 @@ using Docker.
 # Howto
 
 ```
-# ./prepare_ssh_keys
+# ./prepare_test
 # docker-compose up
 ```

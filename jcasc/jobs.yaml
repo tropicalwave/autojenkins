@@ -1,0 +1,18 @@
+jobs:
+  - script: >
+     pipelineJob('test') {
+       definition {
+         cpsScm {
+           scm {
+             git {
+               remote {
+                 url('file:///tmp/localrepo')
+               }
+             }
+           }
+         }
+       }
+       triggers {
+           cron('@midnight')
+       }
+     }

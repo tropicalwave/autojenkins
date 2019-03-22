@@ -1,3 +1,5 @@
+configuration-as-code
+configuration-as-code-support
 git
 greenballs
 job-dsl

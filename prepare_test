@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+mkdir ssh/
+ssh-keygen -t rsa -m PEM -f ssh/test-key -N ""
+
+PASSWORD="$(openssl rand -hex 32)"
+echo
+echo "Generated admin password is $PASSWORD"
+
+cat >docker-compose.yml <<EOF
+version: "3.1"
+
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    ports:
+      - "8080:8080"
+    environment:
+      ADMIN_PASSWORD: "$PASSWORD"
+      SSH_PRIVATE_KEY: |-
+$(sed "s/^/        /" ssh/test-key)
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-worker
+EOF

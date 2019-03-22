@@ -5,12 +5,10 @@ ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 COPY plugins/plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt 
 
-USER root
-COPY ssh/ /ssh
-COPY init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
-COPY job/jobs.groovy /usr/share/jenkins/ref/jobs.groovy
+COPY jcasc/ /var/jenkins_home/casc_configs
 COPY project/ /tmp/localrepo
-RUN chown -R 1000:1000 /ssh /tmp/localrepo
+USER root
+RUN chown jenkins:jenkins /tmp/localrepo
 USER jenkins
 
 RUN cd /tmp/localrepo && \
@@ -20,3 +18,4 @@ RUN cd /tmp/localrepo && \
 	git add * && \
 	git commit -m "initial commit"
 
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc_configs
