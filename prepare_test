@@ -48,6 +48,7 @@ $(sed "s/^/        /" ssh/test-key)
       DB_HOST: db:3306
       DB_NAME: gitea
       DB_USER: gitea
+      SSH_PORT: 2222
       GITEA_USER: gitea
       GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
       DB_PASSWD: "$MYSQL_USER_PASSWORD"
@@ -56,7 +57,7 @@ $(sed "s/^/        /" ssh/test-key)
       INSTALL_LOCK: "true"
     ports:
       - "3000:3000"
-      - "22:22"
+      - "2222:22"
     depends_on:
       - db
 
