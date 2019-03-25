@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ "$GITEA_USER" -a "$GITEA_PASSWORD" ]; then
+	while [ 1 ]; do
+		nc localhost 3000 </dev/null && break
+		sleep 1
+	done
+
+	gitea admin create-user --name "$GITEA_USER" --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
+fi
+
+while [ 1 ]; do
+	sleep 3600
+done

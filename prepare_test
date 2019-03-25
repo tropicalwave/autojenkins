@@ -3,9 +3,21 @@ set -e
 mkdir ssh/
 ssh-keygen -t rsa -m PEM -f ssh/test-key -N ""
 
-PASSWORD="$(openssl rand -hex 32)"
+JENKINS_PASSWORD="$(openssl rand -hex 16)"
+MYSQL_ADMIN_PASSWORD="$(openssl rand -hex 16)"
+MYSQL_USER_PASSWORD="$(openssl rand -hex 16)"
+GITEA_USER_PASSWORD="$(openssl rand -hex 16)"
+
 echo
-echo "Generated admin password is $PASSWORD"
+echo "+---------------+----------------------------------+"
+echo "| Service       | Generated password               |"
+echo "+---------------+----------------------------------+"
+echo "| Jenkins       | $JENKINS_PASSWORD |"
+echo "| Mysql (root)  | $MYSQL_ADMIN_PASSWORD |"
+echo "| Mysql (gitea) | $MYSQL_USER_PASSWORD |"
+echo "| Gitea         | $GITEA_USER_PASSWORD |"
+echo "+---------------+----------------------------------+"
+echo
 
 cat >docker-compose.yml <<EOF
 version: "3.1"
@@ -18,7 +30,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      ADMIN_PASSWORD: "$PASSWORD"
+      ADMIN_PASSWORD: "$JENKINS_PASSWORD"
       SSH_PRIVATE_KEY: |-
 $(sed "s/^/        /" ssh/test-key)
 
@@ -26,4 +38,33 @@ $(sed "s/^/        /" ssh/test-key)
     build:
       context: .
       dockerfile: Dockerfile-worker
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-gitea
+    environment:
+      DB_TYPE: mysql
+      DB_HOST: db:3306
+      DB_NAME: gitea
+      DB_USER: gitea
+      GITEA_USER: gitea
+      GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
+      DB_PASSWD: "$MYSQL_USER_PASSWORD"
+      RUN_MODE: "prod"
+      DISABLE_REGISTRATION: "true"
+      INSTALL_LOCK: "true"
+    ports:
+      - "3000:3000"
+      - "22:22"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "$MYSQL_ADMIN_PASSWORD"
+      MYSQL_DATABASE: gitea
+      MYSQL_USER: gitea
+      MYSQL_PASSWORD: "$MYSQL_USER_PASSWORD"
 EOF
