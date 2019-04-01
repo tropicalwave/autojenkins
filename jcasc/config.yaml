@@ -6,22 +6,27 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: admin
-          password: ${ADMIN_PASSWORD}
+      - id: admin
+        password: ${ADMIN_PASSWORD}
   authorizationStrategy: loggedInUsersCanDoAnything
 
 credentials:
   system:
     domainCredentials:
-      - credentials:
-        - basicSSHUserPrivateKey:
-            scope: GLOBAL
-            id: test-key
-            username: jenkins
-            description: "Test SSH credentials"
-            privateKeySource:
-              directEntry:
-                privateKey: ${SSH_PRIVATE_KEY}
+    - credentials:
+      - basicSSHUserPrivateKey:
+          scope: GLOBAL
+          id: test-key
+          username: jenkins
+          description: "Test SSH credentials"
+          privateKeySource:
+            directEntry:
+              privateKey: ${SSH_PRIVATE_KEY}
+      - usernamePassword:
+          id: "gitea-login"
+          password: ${GITEA_PASSWORD}
+          scope: GLOBAL
+          username: "gitea"
 
 security:
   remotingCLI:
@@ -30,3 +35,9 @@ security:
 unclassified:
   location:
     url: http://localhost:8080
+  giteaServers:
+    servers:
+      - credentialsId: "gitea-login"
+        displayName: "mygitea"
+        manageHooks: true
+        serverUrl: "http://gitea:3000"

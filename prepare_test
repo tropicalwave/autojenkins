@@ -9,14 +9,14 @@ MYSQL_USER_PASSWORD="$(openssl rand -hex 16)"
 GITEA_USER_PASSWORD="$(openssl rand -hex 16)"
 
 echo
-echo "+---------------+----------------------------------+"
-echo "| Service       | Generated password               |"
-echo "+---------------+----------------------------------+"
-echo "| Jenkins       | $JENKINS_PASSWORD |"
-echo "| Mysql (root)  | $MYSQL_ADMIN_PASSWORD |"
-echo "| Mysql (gitea) | $MYSQL_USER_PASSWORD |"
-echo "| Gitea         | $GITEA_USER_PASSWORD |"
-echo "+---------------+----------------------------------+"
+echo "+---------+-------+----------------------------------+"
+echo "| Service | User  | Generated password               |"
+echo "+---------+-------+----------------------------------+"
+echo "| Jenkins | admin | $JENKINS_PASSWORD |"
+echo "| Mysql   | root  | $MYSQL_ADMIN_PASSWORD |"
+echo "| Mysql   | gitea | $MYSQL_USER_PASSWORD |"
+echo "| Gitea   | gitea | $GITEA_USER_PASSWORD |"
+echo "+---------+-------+----------------------------------+"
 echo
 
 cat >docker-compose.yml <<EOF
@@ -31,6 +31,7 @@ services:
       - "8080:8080"
     environment:
       ADMIN_PASSWORD: "$JENKINS_PASSWORD"
+      GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
       SSH_PRIVATE_KEY: |-
 $(sed "s/^/        /" ssh/test-key)
 
@@ -39,7 +40,7 @@ $(sed "s/^/        /" ssh/test-key)
       context: .
       dockerfile: Dockerfile-worker
 
-  web:
+  gitea:
     build:
       context: .
       dockerfile: Dockerfile-gitea
@@ -49,6 +50,7 @@ $(sed "s/^/        /" ssh/test-key)
       DB_NAME: gitea
       DB_USER: gitea
       SSH_PORT: 2222
+      ROOT_URL: http://gitea:3000
       GITEA_USER: gitea
       GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
       DB_PASSWD: "$MYSQL_USER_PASSWORD"

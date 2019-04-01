@@ -1,18 +1,16 @@
 jobs:
   - script: >
-     pipelineJob('test') {
-       definition {
-         cpsScm {
-           scm {
-             git {
-               remote {
-                 url('file:///tmp/localrepo')
-               }
-             }
-           }
-         }
-       }
-       triggers {
-           cron('@midnight')
-       }
-     }
+      organizationFolder("Gitea Test") {
+        description("Organization Folder")
+        configure {
+          it / navigators / "org.jenkinsci.plugin.gitea.GiteaSCMNavigator" << {
+            repoOwner("home")
+            serverUrl("http://gitea:3000")
+            credentialsId("gitea-login")
+          }
+
+          it / navigators / "org.jenkinsci.plugin.gitea.GiteaSCMNavigator" / traits  << "org.jenkinsci.plugin.gitea.BranchDiscoveryTrait" {
+            strategyId('1')
+          }
+        }
+      }

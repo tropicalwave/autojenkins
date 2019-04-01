@@ -1,6 +1,8 @@
+basic-branch-build-strategies
 configuration-as-code
 configuration-as-code-support
 git
+gitea
 greenballs
 job-dsl
 ssh-agent
