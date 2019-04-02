@@ -1,7 +1,7 @@
 # autojenkins
 
 Test project to get used to mechanisms of automated Jenkins installation
-using Docker.
+using Docker and Gitea.
 
 # Howto
 

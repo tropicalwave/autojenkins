@@ -10,13 +10,26 @@ jenkins:
         password: ${ADMIN_PASSWORD}
   authorizationStrategy: loggedInUsersCanDoAnything
 
+  nodes:
+    - permanent:
+        name: "worker-1"
+        remoteFS: "/home/jenkins"
+        labelString: "fedora"
+        launcher:
+          SSHLauncher:
+            host: "worker"
+            credentialsId: "agent-ssh-key"
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
+
 credentials:
   system:
     domainCredentials:
     - credentials:
       - basicSSHUserPrivateKey:
-          scope: GLOBAL
-          id: test-key
+          scope: SYSTEM
+          id: agent-ssh-key
           username: jenkins
           description: "Test SSH credentials"
           privateKeySource:

@@ -1,10 +1,13 @@
 basic-branch-build-strategies
+command-launcher
 configuration-as-code
 configuration-as-code-support
 git
 gitea
 greenballs
+jdk-tool
 job-dsl
-ssh-agent
+ssh-slaves
 ssh-credentials
-ssh-steps
+workflow-aggregator
+workflow-multibranch

@@ -1,36 +1,67 @@
 #!/bin/bash
 if [ "$GITEA_USER" -a "$GITEA_PASSWORD" ]; then
-	while [ 1 ]; do
-		nc localhost 3000 </dev/null && break
-		sleep 1
-	done
+    while [ 1 ]; do
+        nc localhost 3000 </dev/null && break
+        sleep 1
+    done
 
-	gitea admin create-user --name "$GITEA_USER" --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
+    gitea admin create-user --name "$GITEA_USER" --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
 
-	GITEA_URL="http://localhost:3000"
-	AUTHORIZATION="$(echo -n $GITEA_USER:$GITEA_PASSWORD | base64)"
+    if [ $? -eq 0 ]; then
+        GITEA_URL="http://localhost:3000"
+        AUTHORIZATION="$(echo -n $GITEA_USER:$GITEA_PASSWORD | base64)"
 
-	TOKEN="$(curl -sf -X POST --url $GITEA_URL/api/v1/users/gitea/tokens -H "Authorization: Basic $AUTHORIZATION" -H "Content-Type: application/json" --data '{"name":"test"}' | sed "s/}//g;s/\"//g" | awk -F: '{ print $NF }')"
-	[ -z "$TOKEN" ] && echo "Could not create token"
-	echo "token = $TOKEN"
+        DEFAULT_CURL_PARAMETERS="-H Content-Type:application/json -H accept:application/json"
+        TOKEN="$(curl -sf -X POST --url $GITEA_URL/api/v1/users/gitea/tokens -H "Authorization: Basic $AUTHORIZATION" \
+            $DEFAULT_CURL_PARAMETERS --data '{"name":"test"}' | sed "s/}//g;s/\"//g" | awk -F: '{ print $NF }')"
+        [ -z "$TOKEN" ] && echo "Could not create token"
 
-	curl -f -X POST "$GITEA_URL/api/v1/orgs" -H "Authorization: token $TOKEN" -H "Content-Type: application/json" -H  "accept: application/json" --data '{"name": "org", "username": "home"}' || echo "Could not create organization"
+        curl -f -X POST "$GITEA_URL/api/v1/orgs" -H "Authorization: token $TOKEN" $DEFAULT_CURL_PARAMETERS \
+            --data '{"name": "org", "username": "home"}'
+        curl -f -X POST "$GITEA_URL/api/v1/org/home/repos?token=$TOKEN" $DEFAULT_CURL_PARAMETERS \
+            -d '{"name":"test", "description": "Test repository"}'
+        curl -f -X POST "$GITEA_URL/api/v1/org/home/repos?token=$TOKEN" $DEFAULT_CURL_PARAMETERS \
+            -d '{"name":"test2", "description": "Second test repository"}'
 
-	curl -f -X POST "$GITEA_URL/api/v1/org/home/repos?access_token=$TOKEN" -H "accept: application/json" -H "content-type: application/json" -d '{"name":"test", "description": "Test repository"}' || echo "Could not create repository"
-	curl -f -X POST "$GITEA_URL/api/v1/org/home/repos?access_token=$TOKEN" -H "accept: application/json" -H "content-type: application/json" -d '{"name":"test2", "description": "Second test repository"}' || echo "Could not create repository 2"
+        git config --global user.email "me@localhost"
+        git config --global user.name "Prename Surname"
 
-	git config --global user.email "me@localhost"
-	git config --global user.name "Prename Surname"
+        ssh-keygen -b 1024 -f $HOME/.ssh/id_rsa -N ''
+        PUBLIC_SSH_KEY="$(cat $HOME/.ssh/id_rsa.pub)"
 
-	git init /tmp/test
-	cd /tmp/test
-	touch README.md
-	git add README.md
-	git commit -m "initial commit"
-	git remote add origin http://localhost:3000/home/test.git
-	git push
+        cat > $HOME/.ssh/config <<EOF
+Host localhost
+  StrictHostKeyChecking=no
+EOF
+
+        for repo in test test2; do
+            curl -f -X POST "$GITEA_URL/api/v1/repos/home/$repo/keys?token=$TOKEN" $DEFAULT_CURL_PARAMETERS \
+                -d "{\"title\":\"bla\", \"key\": \"$PUBLIC_SSH_KEY\"}"
+
+            git clone ssh://git@localhost/home/$repo /tmp/$repo
+            pushd $PWD
+            cd /tmp/$repo
+            cat >Jenkinsfile <<EOF
+pipeline {
+    agent { label "fedora" }
+
+    stages {
+        stage("Build") {
+            steps {
+                sh "echo Hello World! This is repo $repo"
+            }
+        }
+    }
+}
+EOF
+            git add Jenkinsfile
+            git commit -m "initial commit"
+            git push
+            popd
+        done
+    fi
 fi
 
 while [ 1 ]; do
-	sleep 3600
+    sleep 3600
 done
