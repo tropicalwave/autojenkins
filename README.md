@@ -7,5 +7,5 @@ using Docker and Gitea.
 
 ```
 # ./prepare_test
-# docker-compose up
+# docker-compose up -d
 ```
