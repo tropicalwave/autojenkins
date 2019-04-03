@@ -10,7 +10,7 @@ jobs:
           }
 
           it / navigators / "org.jenkinsci.plugin.gitea.GiteaSCMNavigator" / traits  << "org.jenkinsci.plugin.gitea.BranchDiscoveryTrait" {
-            strategyId('1')
+            strategyId('3')
           }
         }
       }
