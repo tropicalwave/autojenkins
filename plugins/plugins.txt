@@ -7,6 +7,7 @@ gitea
 greenballs
 jdk-tool
 job-dsl
+oic-auth
 ssh-slaves
 ssh-credentials
 workflow-aggregator

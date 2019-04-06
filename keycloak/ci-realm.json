@@ -1,0 +1,54 @@
+{
+    "realm": "ci",
+    "enabled": true,
+    "sslRequired": "external",
+    "registrationAllowed": true,
+    "requiredCredentials": [ "password" ],
+    "users" : [
+        {
+            "username" : "demo",
+            "enabled": true,
+            "email" : "me@localhost",
+            "firstName": "Sample",
+            "lastName": "User",
+            "credentials" : [
+                { "type" : "password",
+                  "value" : "$USER_PASSWORD" }
+            ],
+            "clientRoles": {
+                "account": ["view-profile", "manage-account"]
+            }
+        }
+    ],
+    "scopeMappings": [
+        {
+            "clientScope": "offline_access",
+            "roles": ["offline_access"]
+        }
+    ],
+    "clients": [
+        {
+            "clientId": "jenkins",
+            "enabled": true,
+	    "publicClient": false,
+	    "secret": "$KEYCLOAK_CLIENT_SECRET",
+	    "clientAuthenticatorType": "client-secret",
+	    "rootUrl": "http://localhost:8080",
+	    "adminUrl": "http://localhost:8080",
+            "redirectUris": [
+                "http://localhost:8080/*"
+            ],
+            "webOrigins": [
+                "http://localhost:8080/*"
+            ]
+        }
+    ],
+    "clientScopeMappings": {
+        "account": [
+            {
+                "client": "jenkins",
+                "roles": ["view-profile"]
+            }
+        ]
+    }
+}

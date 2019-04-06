@@ -1,0 +1,4 @@
+FROM jboss/keycloak
+COPY keycloak/ /opt/ci
+
+ENTRYPOINT /opt/ci/startup
