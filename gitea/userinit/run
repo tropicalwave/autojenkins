@@ -28,15 +28,15 @@ if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]]; then
         ssh-keygen -f "$HOME/.ssh/id_rsa" -N ''
         PUBLIC_SSH_KEY="$(cat "$HOME/.ssh/id_rsa.pub")"
 
+        curl -f -X POST  "$GITEA_URL/api/v1/user/keys?token=$TOKEN" "${DEFAULT_CURL_PARAMETERS[@]}" \
+            -d "{\"Title\": \"test-key\", \"Key\": \"$PUBLIC_SSH_KEY\"}"
+
         cat > "$HOME/.ssh/config" <<EOF
 Host localhost
   StrictHostKeyChecking=no
 EOF
 
         for repo in test test2; do
-            curl -f -X POST "$GITEA_URL/api/v1/repos/home/$repo/keys?token=$TOKEN" "${DEFAULT_CURL_PARAMETERS[@]}" \
-                -d "{\"title\":\"bla\", \"key\": \"$PUBLIC_SSH_KEY\"}"
-
             git clone ssh://git@localhost/home/$repo /tmp/$repo
             pushd "$PWD" || exit
             cd "/tmp/$repo" || exit
