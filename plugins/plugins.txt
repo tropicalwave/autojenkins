@@ -7,6 +7,7 @@ gitea
 greenballs
 jdk-tool
 job-dsl
+role-strategy
 ssh-slaves
 ssh-credentials
 workflow-aggregator
