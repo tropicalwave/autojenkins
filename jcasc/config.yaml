@@ -25,6 +25,7 @@ jenkins:
             assignments:
               - "anonymous"
 
+  numExecutors: 0
   nodes:
     - permanent:
         name: "worker-1"
