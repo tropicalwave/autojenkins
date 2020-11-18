@@ -3,27 +3,21 @@ jenkins:
   remotingSecurity:
     enabled: true
   securityRealm:
-    local:
-      allowsSignup: false
-      users:
-      - id: admin
-        password: ${ADMIN_PASSWORD}
-  authorizationStrategy:
-    roleBased:
-      roles:
-        global:
-          - name: "admingroup"
-            permissions:
-              - "Overall/Administer"
-            assignments:
-              - "admin"
-          - name: "everybody"
-            permissions:
-              - "Overall/Read"
-              - "Job/Read"
-              - "Job/Build"
-            assignments:
-              - "anonymous"
+    oic:
+      clientId: jenkins
+      clientSecret: ${KEYCLOAK_JENKINS_SECRET}
+      automanualconfigure: manual
+      tokenServerUrl: ${REAL_KEYCLOAK_URL_PREFIX}/token
+      userInfoServerUrl: ${REAL_KEYCLOAK_URL_PREFIX}/userinfo
+      authorizationServerUrl: ${USER_KEYCLOAK_URL_PREFIX}/auth
+      endSessionEndpoint: ${USER_KEYCLOAK_URL_PREFIX}/logout
+      postLogoutRedirectUrl: http://localhost:4040
+      logoutFromOpenidProvider: true
+      userNameField: preferred_username
+      fullNameFieldName: fullName
+      emailFieldName: email
+      scopes: openid email
+  authorizationStrategy: loggedInUsersCanDoAnything
 
   numExecutors: 0
   nodes:
@@ -57,16 +51,12 @@ credentials:
           scope: GLOBAL
           username: "gitea"
 
-security:
-  remotingCLI:
-    enabled: false
-
 unclassified:
   location:
-    url: http://localhost:8080
+    url: http://localhost:4040
   giteaServers:
     servers:
       - credentialsId: "gitea-login"
         displayName: "mygitea"
         manageHooks: true
-        serverUrl: "http://gitea:3000"
+        serverUrl: "http://localhost:3000"

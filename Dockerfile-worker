@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:33
 
 RUN dnf install -y openssh-server \
     java-1.8.0-openjdk-headless \
