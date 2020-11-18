@@ -1,7 +1,6 @@
 basic-branch-build-strategies
 command-launcher
 configuration-as-code
-configuration-as-code-support
 git
 gitea
 greenballs

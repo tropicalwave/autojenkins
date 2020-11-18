@@ -8,7 +8,8 @@ MYSQL_ADMIN_PASSWORD="$(openssl rand -hex 16)"
 MYSQL_USER_PASSWORD="$(openssl rand -hex 16)"
 GITEA_USER_PASSWORD="$(openssl rand -hex 16)"
 KEYCLOAK_PASSWORD="$(openssl rand -hex 16)"
-KEYCLOAK_CLIENT_SECRET="$(uuidgen)"
+KEYCLOAK_JENKINS_SECRET="$(uuidgen)"
+KEYCLOAK_GITEA_SECRET="$(uuidgen)"
 
 echo
 echo "+----------+-------+----------------------------------+"
@@ -16,8 +17,6 @@ echo "| Service  | User  | Generated password               |"
 echo "+----------+-------+----------------------------------+"
 echo "| Jenkins  | demo  | $USER_PASSWORD |"
 echo "| Keycloak | admin | $KEYCLOAK_PASSWORD |"
-echo "| Mysql    | root  | $MYSQL_ADMIN_PASSWORD |"
-echo "| Mysql    | gitea | $MYSQL_USER_PASSWORD |"
 echo "| Gitea    | gitea | $GITEA_USER_PASSWORD |"
 echo "+----------+-------+----------------------------------+"
 echo
@@ -31,14 +30,14 @@ services:
       context: .
       dockerfile: Dockerfile-jenkins
     ports:
-      - "8080:8080"
+      - "4040:4040"
     depends_on:
       - keycloak
     environment:
       GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
-      REAL_KEYCLOAK_URL_PREFIX: "http://keycloak:8080/auth/realms/ci/protocol/openid-connect"
-      USER_KEYCLOAK_URL_PREFIX: "http://localhost:10000/auth/realms/ci/protocol/openid-connect"
-      KEYCLOAK_CLIENT_SECRET: "$KEYCLOAK_CLIENT_SECRET"
+      REAL_KEYCLOAK_URL_PREFIX: "http://localhost:8080/auth/realms/ci/protocol/openid-connect"
+      USER_KEYCLOAK_URL_PREFIX: "http://localhost:8080/auth/realms/ci/protocol/openid-connect"
+      KEYCLOAK_JENKINS_SECRET: "$KEYCLOAK_JENKINS_SECRET"
       SSH_PRIVATE_KEY: |-
 $(sed "s/^/        /" ssh/test-key)
 
@@ -57,13 +56,15 @@ $(sed "s/^/        /" ssh/test-key)
       DB_NAME: gitea
       DB_USER: gitea
       SSH_PORT: 2222
-      ROOT_URL: http://gitea:3000
+      ROOT_URL: http://localhost:3000
       GITEA_USER: gitea
       GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
       DB_PASSWD: "$MYSQL_USER_PASSWORD"
       RUN_MODE: "prod"
       DISABLE_REGISTRATION: "true"
       INSTALL_LOCK: "true"
+      KEYCLOAK_URL: "http://localhost:8080"
+      KEYCLOAK_GITEA_SECRET: "$KEYCLOAK_GITEA_SECRET"
     ports:
       - "3000:3000"
       - "2222:22"
@@ -85,12 +86,12 @@ $(sed "s/^/        /" ssh/test-key)
       dockerfile: Dockerfile-keycloak
     environment:
       KEYCLOAK_HOSTNAME: localhost
-      KEYCLOAK_HTTP_PORT: 10000
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: "$KEYCLOAK_PASSWORD"
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
-      KEYCLOAK_CLIENT_SECRET: "$KEYCLOAK_CLIENT_SECRET"
+      KEYCLOAK_JENKINS_SECRET: "$KEYCLOAK_JENKINS_SECRET"
+      KEYCLOAK_GITEA_SECRET: "$KEYCLOAK_GITEA_SECRET"
       USER_PASSWORD: "$USER_PASSWORD"
     ports:
-      - "10000:8080"
+      - "8080:8080"
 EOF

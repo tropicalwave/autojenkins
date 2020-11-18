@@ -10,8 +10,8 @@ jenkins:
       tokenServerUrl: ${REAL_KEYCLOAK_URL_PREFIX}/token
       userInfoServerUrl: ${REAL_KEYCLOAK_URL_PREFIX}/userinfo
       authorizationServerUrl: ${USER_KEYCLOAK_URL_PREFIX}/auth
-      endSessionUrl: ${USER_KEYCLOAK_URL_PREFIX}/logout
-      postLogoutRedirectUrl: http://localhost:8080
+      endSessionEndpoint: ${USER_KEYCLOAK_URL_PREFIX}/logout
+      postLogoutRedirectUrl: http://localhost:4040
       logoutFromOpenidProvider: true
       userNameField: preferred_username
       fullNameFieldName: fullName
@@ -50,16 +50,12 @@ credentials:
           scope: GLOBAL
           username: "gitea"
 
-security:
-  remotingCLI:
-    enabled: false
-
 unclassified:
   location:
-    url: http://localhost:8080
+    url: http://localhost:4040
   giteaServers:
     servers:
       - credentialsId: "gitea-login"
         displayName: "mygitea"
         manageHooks: true
-        serverUrl: "http://gitea:3000"
+        serverUrl: "http://localhost:3000"

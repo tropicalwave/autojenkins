@@ -5,7 +5,7 @@ jobs:
         configure {
           it / navigators / "org.jenkinsci.plugin.gitea.GiteaSCMNavigator" << {
             repoOwner("home")
-            serverUrl("http://gitea:3000")
+            serverUrl("http://localhost:3000")
             credentialsId("gitea-login")
           }
 

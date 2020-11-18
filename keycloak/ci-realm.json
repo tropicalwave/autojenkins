@@ -31,15 +31,30 @@
             "clientId": "jenkins",
             "enabled": true,
 	    "publicClient": false,
-	    "secret": "$KEYCLOAK_CLIENT_SECRET",
+	    "secret": "$KEYCLOAK_JENKINS_SECRET",
 	    "clientAuthenticatorType": "client-secret",
-	    "rootUrl": "http://localhost:8080",
-	    "adminUrl": "http://localhost:8080",
+	    "rootUrl": "http://localhost:4040",
+	    "adminUrl": "http://localhost:4040",
             "redirectUris": [
-                "http://localhost:8080/*"
+                "http://localhost:4040/*"
             ],
             "webOrigins": [
-                "http://localhost:8080/*"
+                "http://localhost:4040/*"
+            ]
+        },
+        {
+            "clientId": "gitea",
+            "enabled": true,
+	    "publicClient": false,
+	    "secret": "$KEYCLOAK_GITEA_SECRET",
+	    "clientAuthenticatorType": "client-secret",
+	    "rootUrl": "http://localhost:3000",
+	    "adminUrl": "http://localhost:3000",
+            "redirectUris": [
+                "http://localhost:3000/*"
+            ],
+            "webOrigins": [
+                "http://localhost:3000/*"
             ]
         }
     ],

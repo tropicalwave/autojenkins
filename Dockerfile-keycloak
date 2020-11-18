@@ -1,4 +1,4 @@
-FROM jboss/keycloak
+FROM quay.io/keycloak/keycloak:11.0.3
 COPY keycloak/ /opt/ci
 
 ENTRYPOINT /opt/ci/startup
