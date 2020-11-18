@@ -33,7 +33,8 @@ Note: SSO on Gitea only works after a restart of Gitea or manual
 confirmation of SSO settings in the administration frontend, see
 [this bug report](https://github.com/go-gitea/gitea/issues/8356).
 The preferred way to handle this is the execution of the following
-commands after Gitea was accessible once:
+commands after Gitea was accessible once and shows the
+*Login with OpenID* option:
 
 ```
 podman-compose stop gitea
