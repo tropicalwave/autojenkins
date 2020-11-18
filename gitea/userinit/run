@@ -31,9 +31,6 @@ if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
         ssh-keygen -f "$HOME/.ssh/id_rsa" -N ''
         PUBLIC_SSH_KEY="$(cat "$HOME/.ssh/id_rsa.pub")"
 
-        curl -f -X POST  "$GITEA_URL/api/v1/user/keys?token=$TOKEN" "${DEFAULT_CURL_PARAMETERS[@]}" \
-            -d "{\"Title\": \"test-key\", \"Key\": \"$PUBLIC_SSH_KEY\"}"
-
         cat > "$HOME/.ssh/config" <<EOF
 Host localhost
   StrictHostKeyChecking=no
