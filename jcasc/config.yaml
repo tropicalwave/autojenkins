@@ -19,6 +19,7 @@ jenkins:
       scopes: openid email
   authorizationStrategy: loggedInUsersCanDoAnything
 
+  numExecutors: 0
   nodes:
     - permanent:
         name: "worker-1"
