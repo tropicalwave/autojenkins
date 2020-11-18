@@ -1,9 +1,9 @@
 #!/bin/bash
-if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]]; then
+if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
     GITEA_URL="http://localhost:3000"
     while true; do
         STATUS_CODE=$(curl -LI "$GITEA_URL" -o /dev/null -w '%{http_code}\n' -s)
-        if [ $STATUS_CODE = "200" ]; then
+        if [ "$STATUS_CODE" = "200" ]; then
             break
         fi
         sleep 1
@@ -75,6 +75,8 @@ EOF
     gitea admin auth add-oauth --name keycloak --provider openidConnect --key gitea --secret "$KEYCLOAK_GITEA_SECRET" --auto-discover-url "$KEYCLOAK_URL/auth/realms/ci/.well-known/openid-configuration"
     echo 'Initialized everything.' >>/tmp/init.log
 fi
+
+touch .initialized
 
 while true; do
     sleep 3600
