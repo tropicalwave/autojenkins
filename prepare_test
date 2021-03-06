@@ -12,13 +12,13 @@ KEYCLOAK_JENKINS_SECRET="$(uuidgen)"
 KEYCLOAK_GITEA_SECRET="$(uuidgen)"
 
 echo
-echo "+----------+-------+----------------------------------+"
-echo "| Service  | User  | Generated password               |"
-echo "+----------+-------+----------------------------------+"
-echo "| Jenkins  | demo  | $USER_PASSWORD |"
-echo "| Keycloak | admin | $KEYCLOAK_PASSWORD |"
-echo "| Gitea    | gitea | $GITEA_USER_PASSWORD |"
-echo "+----------+-------+----------------------------------+"
+echo "+----------------+-------+----------------------------------+"
+echo "| Service        | User  | Generated password               |"
+echo "+----------------+-------+----------------------------------+"
+echo "| Jenkins/Gitea  | demo  | $USER_PASSWORD |"
+echo "| Keycloak       | admin | $KEYCLOAK_PASSWORD |"
+echo "| Gitea          | gitea | $GITEA_USER_PASSWORD |"
+echo "+----------------+-------+----------------------------------+"
 echo
 
 cat >docker-compose.yml <<EOF

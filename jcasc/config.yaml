@@ -26,7 +26,7 @@ jenkins:
         remoteFS: "/home/jenkins"
         labelString: "fedora"
         launcher:
-          SSHLauncher:
+          ssh:
             host: "worker"
             credentialsId: "agent-ssh-key"
             sshHostKeyVerificationStrategy:
