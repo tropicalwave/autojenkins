@@ -9,7 +9,7 @@ if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
         sleep 1
     done
 
-    if gitea admin create-user --admin --username "$GITEA_USER" --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
+    if gitea admin user create --admin --username "$GITEA_USER" --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
     then
         AUTHORIZATION="$(echo -n "$GITEA_USER:$GITEA_PASSWORD" | base64)"
 
