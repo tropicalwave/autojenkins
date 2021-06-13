@@ -1,3 +1,4 @@
+---
 jenkins:
   crumbIssuer: standard
   remotingSecurity:
@@ -36,20 +37,20 @@ jenkins:
 credentials:
   system:
     domainCredentials:
-    - credentials:
-      - basicSSHUserPrivateKey:
-          scope: SYSTEM
-          id: agent-ssh-key
-          username: jenkins
-          description: "Test SSH credentials"
-          privateKeySource:
-            directEntry:
-              privateKey: ${SSH_PRIVATE_KEY}
-      - usernamePassword:
-          id: "gitea-login"
-          password: ${GITEA_PASSWORD}
-          scope: GLOBAL
-          username: "gitea"
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: SYSTEM
+              id: agent-ssh-key
+              username: jenkins
+              description: "Test SSH credentials"
+              privateKeySource:
+                directEntry:
+                  privateKey: ${SSH_PRIVATE_KEY}
+          - usernamePassword:
+              id: "gitea-login"
+              password: ${GITEA_PASSWORD}
+              scope: GLOBAL
+              username: "gitea"
 
 unclassified:
   location:

@@ -1,3 +1,4 @@
+---
 jobs:
   - script: >
       organizationFolder("Gitea Test") {
@@ -9,7 +10,8 @@ jobs:
             credentialsId("gitea-login")
           }
 
-          it / navigators / "org.jenkinsci.plugin.gitea.GiteaSCMNavigator" / traits  << "org.jenkinsci.plugin.gitea.BranchDiscoveryTrait" {
+          it / navigators / "org.jenkinsci.plugin.gitea.GiteaSCMNavigator" /
+              traits  << "org.jenkinsci.plugin.gitea.BranchDiscoveryTrait" {
             strategyId('3')
           }
         }
