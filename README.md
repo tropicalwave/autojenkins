@@ -10,8 +10,8 @@ Jenkins installation using Podman, Gitea and Keycloak.
 ## Quickstart
 
 ```bash
-# ./prepare_test
-# podman-compose up -d
+./prepare_test
+podman-compose up -d
 ```
 
 ## Overview
