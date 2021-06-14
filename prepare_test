@@ -8,6 +8,7 @@ MYSQL_ADMIN_PASSWORD="$(openssl rand -hex 16)"
 MYSQL_USER_PASSWORD="$(openssl rand -hex 16)"
 GITEA_USER_PASSWORD="$(openssl rand -hex 16)"
 KEYCLOAK_PASSWORD="$(openssl rand -hex 16)"
+LDAP_BIND_CREDENTIAL="$(openssl rand -hex 16)"
 KEYCLOAK_JENKINS_SECRET="$(uuidgen)"
 KEYCLOAK_GITEA_SECRET="$(uuidgen)"
 
@@ -81,6 +82,14 @@ $(sed "s/^/        /" ssh/test-key)
       MYSQL_USER: gitea
       MYSQL_PASSWORD: "$MYSQL_USER_PASSWORD"
 
+  ldap:
+    build:
+      context: .
+      dockerfile: Dockerfile-ldap
+    environment:
+      LDAP_ADMIN_PASSWORD: "$LDAP_BIND_CREDENTIAL"
+      LDAP_SEED_INTERNAL_LDIF_PATH: /tmp/ldifs
+
   keycloak:
     build:
       context: .
@@ -92,7 +101,25 @@ $(sed "s/^/        /" ssh/test-key)
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
       KEYCLOAK_JENKINS_SECRET: "$KEYCLOAK_JENKINS_SECRET"
       KEYCLOAK_GITEA_SECRET: "$KEYCLOAK_GITEA_SECRET"
+      LDAP_BIND_CREDENTIAL: "$LDAP_BIND_CREDENTIAL"
       USER_PASSWORD: "$USER_PASSWORD"
     ports:
       - "8080:8080"
+EOF
+
+cat >user.ldif <<EOF
+dn: uid=demo,dc=example,dc=org
+uid: demo
+cn: John
+sn: Doe
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/user
+uidNumber: 14583102
+gidNumber: 14564100
+userPassword: $USER_PASSWORD
+mail: demo@example.com
+gecos: demo
 EOF
