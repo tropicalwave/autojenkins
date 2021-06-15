@@ -14,10 +14,11 @@
         {
             "clientId": "jenkins",
             "enabled": true,
+	    "alwaysDisplayInConsole": true,
 	    "publicClient": false,
 	    "secret": "$KEYCLOAK_JENKINS_SECRET",
 	    "clientAuthenticatorType": "client-secret",
-	    "rootUrl": "http://localhost:4040",
+	    "baseUrl": "http://localhost:4040",
 	    "adminUrl": "http://localhost:4040",
             "redirectUris": [
                 "http://localhost:4040/*"
@@ -29,10 +30,11 @@
         {
             "clientId": "gitea",
             "enabled": true,
+	    "alwaysDisplayInConsole": true,
 	    "publicClient": false,
 	    "secret": "$KEYCLOAK_GITEA_SECRET",
 	    "clientAuthenticatorType": "client-secret",
-	    "rootUrl": "http://localhost:3000",
+	    "baseUrl": "http://localhost:3000",
 	    "adminUrl": "http://localhost:3000",
             "redirectUris": [
                 "http://localhost:3000/*"

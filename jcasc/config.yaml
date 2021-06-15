@@ -50,7 +50,7 @@ credentials:
               id: "gitea-login"
               password: ${GITEA_PASSWORD}
               scope: GLOBAL
-              username: "gitea"
+              username: "demo"
 
 unclassified:
   location:
