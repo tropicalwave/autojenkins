@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
+if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
     GITEA_URL="http://localhost:3000"
     while true; do
         STATUS_CODE=$(curl -LI "$GITEA_URL" -o /dev/null -w '%{http_code}\n' -s)
@@ -9,9 +9,19 @@ if [[ "$GITEA_USER" && "$GITEA_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
         sleep 1
     done
 
-    if gitea admin user create --admin --username "$GITEA_USER" --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
+    if gitea admin user create --admin --username gitea --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
     then
-        AUTHORIZATION="$(echo -n "$GITEA_USER:$GITEA_PASSWORD" | base64)"
+        gitea admin auth add-ldap \
+            --name ldap \
+            --security-protocol unencrypted \
+            --host localhost \
+            --port 389 \
+            --user-search-base "dc=example,dc=org" \
+            --user-filter "(&(objectClass=inetOrgPerson)(uid=%s))" \
+            --email-attribute mail \
+            --bind-dn cn=admin,dc=example,dc=org \
+            --bind-password "$LDAP_BIND_CREDENTIAL"
+        AUTHORIZATION="$(echo -n "demo:$USER_PASSWORD" | base64)"
 
         DEFAULT_CURL_PARAMETERS=(-H Content-Type:application/json -H accept:application/json)
         TOKEN="$(curl -sf -X POST --url $GITEA_URL/api/v1/users/gitea/tokens -H "Authorization: Basic $AUTHORIZATION" \

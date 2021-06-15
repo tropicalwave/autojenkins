@@ -5,7 +5,7 @@
 ## Introduction
 
 This is a test project to get used to the mechanisms of an automated
-Jenkins installation using Podman, Gitea and Keycloak.
+Jenkins installation using Podman, Gitea, LDAP and Keycloak.
 
 ## Quickstart
 

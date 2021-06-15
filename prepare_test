@@ -8,6 +8,7 @@ MYSQL_ADMIN_PASSWORD="$(openssl rand -hex 16)"
 MYSQL_USER_PASSWORD="$(openssl rand -hex 16)"
 GITEA_USER_PASSWORD="$(openssl rand -hex 16)"
 KEYCLOAK_PASSWORD="$(openssl rand -hex 16)"
+LDAP_BIND_CREDENTIAL="$(openssl rand -hex 16)"
 KEYCLOAK_JENKINS_SECRET="$(uuidgen)"
 KEYCLOAK_GITEA_SECRET="$(uuidgen)"
 
@@ -17,7 +18,7 @@ echo "| Service        | User  | Generated password               |"
 echo "+----------------+-------+----------------------------------+"
 echo "| Jenkins/Gitea  | demo  | $USER_PASSWORD |"
 echo "| Keycloak       | admin | $KEYCLOAK_PASSWORD |"
-echo "| Gitea          | gitea | $GITEA_USER_PASSWORD |"
+echo "| Gitea (admin)  | gitea | $GITEA_USER_PASSWORD |"
 echo "+----------------+-------+----------------------------------+"
 echo
 
@@ -35,7 +36,7 @@ services:
     depends_on:
       - keycloak
     environment:
-      GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
+      GITEA_PASSWORD: "$USER_PASSWORD"
       REAL_KEYCLOAK_URL_PREFIX: "http://localhost:8080/auth/realms/ci/protocol/openid-connect"
       USER_KEYCLOAK_URL_PREFIX: "http://localhost:8080/auth/realms/ci/protocol/openid-connect"
       KEYCLOAK_JENKINS_SECRET: "$KEYCLOAK_JENKINS_SECRET"
@@ -58,8 +59,9 @@ $(sed "s/^/        /" ssh/test-key)
       DB_USER: gitea
       SSH_PORT: 2222
       ROOT_URL: http://localhost:3000
-      GITEA_USER: gitea
       GITEA_PASSWORD: "$GITEA_USER_PASSWORD"
+      LDAP_BIND_CREDENTIAL: "$LDAP_BIND_CREDENTIAL"
+      USER_PASSWORD: "$USER_PASSWORD"
       DB_PASSWD: "$MYSQL_USER_PASSWORD"
       RUN_MODE: "prod"
       DISABLE_REGISTRATION: "true"
@@ -72,6 +74,7 @@ $(sed "s/^/        /" ssh/test-key)
     depends_on:
       - db
       - keycloak
+      - ldap
 
   db:
     image: mariadb:10.5
@@ -80,6 +83,15 @@ $(sed "s/^/        /" ssh/test-key)
       MYSQL_DATABASE: gitea
       MYSQL_USER: gitea
       MYSQL_PASSWORD: "$MYSQL_USER_PASSWORD"
+
+  ldap:
+    build:
+      context: .
+      dockerfile: Dockerfile-ldap
+    environment:
+      LDAP_ADMIN_PASSWORD: "$LDAP_BIND_CREDENTIAL"
+      USER_PASSWORD: "$USER_PASSWORD"
+      LDAP_SEED_INTERNAL_LDIF_PATH: /tmp/ldifs
 
   keycloak:
     build:
@@ -92,7 +104,24 @@ $(sed "s/^/        /" ssh/test-key)
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
       KEYCLOAK_JENKINS_SECRET: "$KEYCLOAK_JENKINS_SECRET"
       KEYCLOAK_GITEA_SECRET: "$KEYCLOAK_GITEA_SECRET"
-      USER_PASSWORD: "$USER_PASSWORD"
+      LDAP_BIND_CREDENTIAL: "$LDAP_BIND_CREDENTIAL"
     ports:
       - "8080:8080"
+EOF
+
+cat >user.ldif <<EOF
+dn: uid=demo,dc=example,dc=org
+uid: demo
+cn: John
+sn: Doe
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/user
+uidNumber: 14583102
+gidNumber: 14564100
+userPassword: $USER_PASSWORD
+mail: demo@example.com
+gecos: demo
 EOF
