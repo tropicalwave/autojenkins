@@ -109,7 +109,7 @@ $(sed "s/^/        /" ssh/test-key)
       - "8080:8080"
 EOF
 
-cat >user.ldif <<EOF
+cat >ldap/user.ldif <<EOF
 dn: uid=demo,dc=example,dc=org
 uid: demo
 cn: John
