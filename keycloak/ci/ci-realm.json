@@ -4,6 +4,7 @@
     "loginTheme": "custom",
     "sslRequired": "external",
     "registrationAllowed": true,
+    "bruteForceProtected": true,
     "requiredCredentials": [ "password" ],
     "scopeMappings": [
         {
