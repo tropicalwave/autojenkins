@@ -6,6 +6,7 @@
     "registrationAllowed": true,
     "bruteForceProtected": true,
     "requiredCredentials": [ "password" ],
+    "passwordPolicy": "length(8) and specialChars(1) and digits(1) and upperCase(1) and lowerCase(1) and notUsername(undefined) and notEmail(undefined)",
     "scopeMappings": [
         {
             "clientScope": "offline_access",
@@ -308,7 +309,7 @@
             "WRITABLE"
           ],
           "validatePasswordPolicy": [
-            "false"
+            "true"
           ],
           "batchSizeForSync": [
             "1000"
