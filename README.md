@@ -4,8 +4,8 @@
 
 ## Introduction
 
-This is a test project to get used to the mechanisms of an automated
-Jenkins installation using Podman, Gitea, LDAP and Keycloak.
+This is a test project to get used to the mechanisms of Jenkins, Gitea,
+LDAP and Keycloak using Podman.
 
 ## Quickstart
 
@@ -15,6 +15,8 @@ podman-compose up -d
 ```
 
 ## Overview
+
+![Architecture](/images/architecture.svg)
 
 After starting the environment, three services will be accessible:
 
