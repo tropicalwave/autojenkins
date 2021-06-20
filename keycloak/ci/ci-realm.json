@@ -1,6 +1,7 @@
 {
     "realm": "ci",
     "enabled": true,
+    "loginTheme": "custom",
     "sslRequired": "external",
     "registrationAllowed": true,
     "requiredCredentials": [ "password" ],
@@ -103,6 +104,32 @@
                 ],
                 "user.model.attribute": [
                   "email"
+                ]
+              }
+            },
+            {
+              "id": "03876039-e9d1-49d0-9135-86ce15fabadd",
+              "name": "privacy policy consent",
+              "providerId": "user-attribute-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "ldap.attribute": [
+                  "audio"
+                ],
+                "is.mandatory.in.ldap": [
+                  "false"
+                ],
+                "is.binary.attribute": [
+                  "false"
+                ],
+                "always.read.value.from.ldap": [
+                  "false"
+                ],
+                "read.only": [
+                  "false"
+                ],
+                "user.model.attribute": [
+                  "acceptedPrivacyPolicy"
                 ]
               }
             },
@@ -250,7 +277,7 @@
             "false"
           ],
           "syncRegistrations": [
-            "false"
+            "true"
           ],
           "authType": [
             "simple"

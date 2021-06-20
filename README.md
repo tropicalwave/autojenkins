@@ -32,3 +32,27 @@ after the initial execution of `./prepare_test`):
 1. User `admin` on Keycloak (administrator)
 2. User `gitea` on Gitea (administrator)
 3. User `demo` on Gitea and Jenkins (using Keycloak SSO)
+
+## Debugging
+
+### Developing Keycloak themes
+
+The interactive development of Keycloak themes needs disabling Keycloak's
+themes cache. Attach to the Keycloak container and execute the following
+commands to disable it:
+
+```bash
+/opt/jboss/keycloak/bin/jboss-cli.sh
+connect
+/subsystem=keycloak-server/theme=defaults/:write-attribute(name=cacheThemes,value=false)
+/subsystem=keycloak-server/theme=defaults/:write-attribute(name=cacheTemplates,value=false)
+/subsystem=keycloak-server/theme=defaults/:write-attribute(name=staticMaxAge,value=-1)
+reload
+```
+
+### Checking LDAP users
+
+Attach to LDAP container and execute the following command:
+```bash
+ldapsearch -b dc=example,dc=org -D cn=admin,dc=example,dc=org -w <ldap admin password>
+```
