@@ -1,0 +1,4 @@
+dn: cn=jenkins_admins,ou=groups,dc=example,dc=org
+changetype: modify
+delete: memberuid
+memberuid: demo

@@ -58,3 +58,20 @@ Attach to LDAP container and execute the following command:
 ```bash
 ldapsearch -b dc=example,dc=org -D cn=admin,dc=example,dc=org -w <ldap admin password>
 ```
+
+### Move demo user from/to Jenkins admin group
+
+By default, the user `demo` is able to administer Jenkins because of its membership
+in the LDAP group `jenkins_admins`. By removing (or adding thereafter) this group
+membership, one can change these admin permissions. This can be directly done
+using these commands in the LDAP container:
+
+```bash
+# add user to group jenkins_admins
+ldapmodify -x -D "cn=admin,dc=example,dc=org" -f /tmp/make-admin.ldif -w <ldap admin password>
+
+# remove user from group jenkins_admins
+ldapmodify -x -D "cn=admin,dc=example,dc=org" -f /tmp/revoke-admin.ldif -w <ldap admin password>
+```
+
+Hint: It might take up to one minute for Keycloak to synchronize this change from LDAP.

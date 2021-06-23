@@ -1,3 +1,4 @@
+authorize-project
 basic-branch-build-strategies
 command-launcher
 configuration-as-code
@@ -7,6 +8,7 @@ greenballs
 jdk-tool
 job-dsl
 oic-auth
+role-strategy
 ssh-slaves
 ssh-credentials
 workflow-aggregator

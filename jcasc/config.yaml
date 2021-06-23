@@ -16,9 +16,34 @@ jenkins:
       logoutFromOpenidProvider: true
       userNameField: preferred_username
       fullNameFieldName: fullName
+      groupsFieldName: groups
       emailFieldName: email
       scopes: openid email
-  authorizationStrategy: loggedInUsersCanDoAnything
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Jenkins administrators"
+            permissions:
+              - "Overall/Administer"
+            assignments:
+              - "jenkins_admins"
+          - name: "build"
+            description: "Jenkins users"
+            permissions:
+              - "Overall/Read"
+              - "Job/Read"
+              - "Job/Build"
+            assignments:
+              - "authenticated"
+          - name: "readonly"
+            description: "Read-only users"
+            permissions:
+              - "Overall/Read"
+              - "Job/Read"
+            assignments:
+              - "anonymous"
 
   numExecutors: 0
   nodes:
@@ -33,6 +58,12 @@ jenkins:
             sshHostKeyVerificationStrategy:
               manuallyTrustedKeyVerificationStrategy:
                 requireInitialManualTrust: false
+
+security:
+  queueItemAuthenticator:
+    authenticators:
+    - global:
+        strategy: "triggeringUsersAuthorizationStrategy"
 
 credentials:
   system:

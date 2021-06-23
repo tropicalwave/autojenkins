@@ -1,2 +1,3 @@
 FROM osixia/openldap:1.5.0
-COPY ldap/ /tmp/ldifs/
+COPY ldap/init/ /tmp/ldifs/
+COPY ldap/*.ldif /tmp/

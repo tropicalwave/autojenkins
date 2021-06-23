@@ -16,7 +16,7 @@ if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ 
             --security-protocol unencrypted \
             --host localhost \
             --port 389 \
-            --user-search-base "dc=example,dc=org" \
+            --user-search-base "ou=users,dc=example,dc=org" \
             --user-filter "(&(objectClass=inetOrgPerson)(uid=%s))" \
             --email-attribute mail \
             --bind-dn cn=admin,dc=example,dc=org \

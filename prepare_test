@@ -109,8 +109,14 @@ $(sed "s/^/        /" ssh/test-key)
       - "8080:8080"
 EOF
 
-cat >ldap/user.ldif <<EOF
-dn: uid=demo,dc=example,dc=org
+cat >ldap/init/create-user.ldif <<EOF
+dn: ou=users,dc=example,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: users
+description: all users
+
+dn: uid=demo,ou=users,dc=example,dc=org
 uid: demo
 cn: John
 sn: Doe

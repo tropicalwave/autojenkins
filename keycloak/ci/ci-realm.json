@@ -28,6 +28,22 @@
             ],
             "webOrigins": [
                 "http://localhost:4040/*"
+            ],
+            "protocolMappers": [
+                {
+                    "id": "be330b55-a446-40c4-bef3-03069e9c7597",
+                    "name": "groups",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-group-membership-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "full.path": "false",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "groups",
+                        "userinfo.token.claim": "true"
+                    }
+                }
             ]
         },
         {
@@ -159,6 +175,56 @@
               }
             },
             {
+              "id": "df0e897d-bdf1-4ea1-934d-62331c00e2bb",
+              "name": "jenkins_admins",
+              "providerId": "group-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "membership.attribute.type": [
+                  "UID"
+                ],
+                "group.name.ldap.attribute": [
+                  "cn"
+                ],
+                "preserve.group.inheritance": [
+                  "false"
+                ],
+                "membership.user.ldap.attribute": [
+                  "uid"
+                ],
+                "groups.dn": [
+                  "ou=groups,dc=example,dc=org"
+                ],
+                "mode": [
+                  "LDAP_ONLY"
+                ],
+                "user.roles.retrieve.strategy": [
+                  "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE"
+                ],
+                "groups.ldap.filter": [
+                  "(cn=jenkins_admins)"
+                ],
+                "membership.ldap.attribute": [
+                  "memberuid"
+                ],
+                "ignore.missing.groups": [
+                  "false"
+                ],
+                "memberof.ldap.attribute": [
+                  "memberOf"
+                ],
+                "group.object.classes": [
+                  "posixGroup"
+                ],
+                "drop.non.existing.groups.during.sync": [
+                  "false"
+                ],
+                "groups.path": [
+                  "/"
+                ]
+              }
+            },
+            {
               "id": "9092924c-d43d-45c0-b1fb-2bf0da4ad66f",
               "name": "first name",
               "providerId": "user-attribute-ldap-mapper",
@@ -240,7 +306,7 @@
             "true"
           ],
           "usersDn": [
-            "dc=example,dc=org"
+            "ou=users,dc=example,dc=org"
           ],
           "cachePolicy": [
             "DEFAULT"
@@ -258,7 +324,7 @@
             "$LDAP_BIND_CREDENTIAL"
           ],
           "changedSyncPeriod": [
-            "-1"
+            "60"
           ],
           "bindDn": [
             "cn=admin,dc=example,dc=org"
