@@ -63,8 +63,8 @@ ldapsearch -b dc=example,dc=org -D cn=admin,dc=example,dc=org -w <ldap admin pas
 
 By default, the user `demo` is able to administer Jenkins because of its membership
 in the LDAP group `jenkins_admins`. By removing (or adding thereafter) this group
-membership, one can change these admin permissions. This can be directly done
-using these commands in the LDAP container:
+membership, one can change these admin permissions. This can be done either in Keycloak
+or using these commands in the LDAP container:
 
 ```bash
 # add user to group jenkins_admins
