@@ -1,0 +1,84 @@
+---
+version: "3.1"
+
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    ports:
+      - "4040:4040"
+    depends_on:
+      - keycloak
+    environment:
+      GITEA_PASSWORD: "${USER_PASSWORD}"
+      KEYCLOAK_JENKINS_SECRET: "${JENKINS_CLIENT_SECRET}"
+    security_opt:
+      - label=disable
+    volumes:
+      - "./ssh/test-key:/run/secrets/ssh_private_key:ro"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-worker
+
+  gitea:
+    build:
+      context: .
+      dockerfile: Dockerfile-gitea
+    environment:
+      DB_TYPE: mysql
+      DB_HOST: db:3306
+      DB_NAME: gitea
+      DB_USER: gitea
+      SSH_PORT: 2222
+      ROOT_URL: http://localhost:3000
+      GITEA_PASSWORD: "${GITEA_ADMIN_PASSWORD}"
+      LDAP_BIND_CREDENTIAL: "${LDAP_ADMIN_PASSWORD}"
+      USER_PASSWORD: "${USER_PASSWORD}"
+      DB_PASSWD: "${GITEA_DB_PASSWORD}"
+      RUN_MODE: "prod"
+      DISABLE_REGISTRATION: "true"
+      INSTALL_LOCK: "true"
+      KEYCLOAK_URL: "http://localhost:8080"
+      KEYCLOAK_GITEA_SECRET: "${GITEA_CLIENT_SECRET}"
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    depends_on:
+      - db
+      - keycloak
+      - ldap
+
+  db:
+    image: mariadb:10.5
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: gitea
+      MYSQL_USER: gitea
+      MYSQL_PASSWORD: "${GITEA_DB_PASSWORD}"
+
+  ldap:
+    build:
+      context: .
+      dockerfile: Dockerfile-ldap
+    environment:
+      LDAP_ADMIN_PASSWORD: "${LDAP_ADMIN_PASSWORD}"
+      USER_PASSWORD: "${USER_PASSWORD}"
+      LDAP_SEED_INTERNAL_LDIF_PATH: /tmp/ldifs
+
+  keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile-keycloak
+    environment:
+      KEYCLOAK_HOSTNAME: localhost
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
+      KEYCLOAK_IMPORT: /tmp/ci-realm.json
+      KEYCLOAK_JENKINS_SECRET: "${JENKINS_CLIENT_SECRET}"
+      KEYCLOAK_GITEA_SECRET: "${GITEA_CLIENT_SECRET}"
+      LDAP_BIND_CREDENTIAL: "${LDAP_ADMIN_PASSWORD}"
+    ports:
+      - "8080:8080"

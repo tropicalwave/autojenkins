@@ -73,7 +73,7 @@ credentials:
               description: "Test SSH credentials"
               privateKeySource:
                 directEntry:
-                  privateKey: ${SSH_PRIVATE_KEY}
+                  privateKey: ${ssh_private_key}
           - usernamePassword:
               id: "gitea-login"
               password: ${GITEA_PASSWORD}
