@@ -37,8 +37,6 @@ services:
       - keycloak
     environment:
       GITEA_PASSWORD: "$USER_PASSWORD"
-      REAL_KEYCLOAK_URL_PREFIX: "http://localhost:8080/auth/realms/ci/protocol/openid-connect"
-      USER_KEYCLOAK_URL_PREFIX: "http://localhost:8080/auth/realms/ci/protocol/openid-connect"
       KEYCLOAK_JENKINS_SECRET: "$KEYCLOAK_JENKINS_SECRET"
       SSH_PRIVATE_KEY: |-
 $(sed "s/^/        /" ssh/test-key)
