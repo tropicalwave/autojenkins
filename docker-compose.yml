@@ -4,8 +4,7 @@ version: "3.1"
 services:
   jenkins:
     build:
-      context: .
-      dockerfile: Dockerfile-jenkins
+      context: jenkins/
     ports:
       - "4040:4040"
     depends_on:
@@ -16,17 +15,15 @@ services:
     security_opt:
       - label=disable
     volumes:
-      - "./ssh/test-key:/run/secrets/ssh_private_key:ro"
+      - "./worker/ssh/test-key:/run/secrets/ssh_private_key:ro"
 
   worker:
     build:
-      context: .
-      dockerfile: Dockerfile-worker
+      context: worker/
 
   gitea:
     build:
-      context: .
-      dockerfile: Dockerfile-gitea
+      context: gitea/
     environment:
       DB_TYPE: mysql
       DB_HOST: db:3306
@@ -61,8 +58,7 @@ services:
 
   ldap:
     build:
-      context: .
-      dockerfile: Dockerfile-ldap
+      context: ldap/
     environment:
       LDAP_ADMIN_PASSWORD: "${LDAP_ADMIN_PASSWORD}"
       USER_PASSWORD: "${USER_PASSWORD}"
@@ -70,8 +66,7 @@ services:
 
   keycloak:
     build:
-      context: .
-      dockerfile: Dockerfile-keycloak
+      context: keycloak/
     environment:
       KEYCLOAK_HOSTNAME: localhost
       KEYCLOAK_USER: admin

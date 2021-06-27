@@ -1,3 +1,0 @@
-FROM gitea/gitea:1.14.2
-
-COPY gitea/userinit /etc/s6/userinit

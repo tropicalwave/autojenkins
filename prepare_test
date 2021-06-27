@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
-mkdir ssh/
-ssh-keygen -t rsa -m PEM -f ssh/test-key -N ""
+mkdir worker/ssh/
+ssh-keygen -t rsa -m PEM -f worker/ssh/test-key -N ""
 
 # Modify key permissions for Jenkins to be able to read file within container
-chmod 644 ssh/test-key
+chmod 644 worker/ssh/test-key
 
 USER_PASSWORD="$(openssl rand -hex 16)"
 MYSQL_ADMIN_PASSWORD="$(openssl rand -hex 16)"
