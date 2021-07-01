@@ -7,9 +7,12 @@ jenkins:
     oic:
       clientId: jenkins
       clientSecret: ${KEYCLOAK_JENKINS_SECRET}
-      automanualconfigure: auto
-      wellKnownOpenIDConfigurationUrl: "http://localhost:8080/auth/realms/ci/.well-known/openid-configuration"
-      postLogoutRedirectUrl: http://localhost:4040
+      automanualconfigure: manual
+      tokenServerUrl: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/token"
+      userInfoServerUrl: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/userinfo"
+      authorizationServerUrl: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/auth"
+      endSessionEndpoint: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/logout"
+      postLogoutRedirectUrl: "http://localhost:4040"
       logoutFromOpenidProvider: true
       userNameField: preferred_username
       fullNameFieldName: fullName
