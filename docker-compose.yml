@@ -74,7 +74,6 @@ services:
     build:
       context: keycloak/
     environment:
-      KEYCLOAK_HOSTNAME: localhost
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
