@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:14.0.0
+FROM quay.io/keycloak/keycloak:15.0.2
 COPY ci/ /opt/ci
 RUN mkdir /opt/jboss/keycloak/themes/custom/ && \
     cp -r /opt/jboss/keycloak/themes/keycloak/login/ /opt/jboss/keycloak/themes/custom/

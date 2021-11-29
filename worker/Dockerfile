@@ -1,7 +1,7 @@
-FROM fedora:34
+FROM fedora:35
 
 RUN dnf install -y openssh-server \
-    java-1.8.0-openjdk-headless \
+    java-latest-openjdk-headless \
     procps-ng \
     findutils \
     git-core \

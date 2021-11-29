@@ -49,7 +49,7 @@ services:
       - ldap
 
   db:
-    image: postgres:13.3
+    image: postgres:14.1
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
