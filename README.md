@@ -39,9 +39,9 @@ after the initial execution of `./prepare_test`):
 
 ### Developing Keycloak themes
 
-The interactive development of Keycloak themes needs disabling Keycloak's
-themes cache. Attach to the Keycloak container and execute the following
-commands to disable it:
+This project uses a customized Keycloak registration form. The interactive
+development of Keycloak themes needs disabling Keycloak's themes cache. Attach
+to the Keycloak container and execute the following commands to disable it:
 
 ```bash
 /opt/jboss/keycloak/bin/jboss-cli.sh
@@ -75,3 +75,10 @@ ldapmodify -x -D "cn=admin,dc=example,dc=org" -f /tmp/revoke-admin.ldif -w <ldap
 ```
 
 Hint: It might take up to one minute for Keycloak to synchronize this change from LDAP.
+
+### Restrict user access to Jenkins
+
+The Jenkins client uses a customized authentication flow. Before granting
+access, it checks if the authenticating user is assigned to the role
+`jenkins_users`. This role is mapped from the LDAP group with the same
+name, so adding/removing users will appropriately change access permissions.
