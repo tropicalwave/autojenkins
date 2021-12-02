@@ -181,7 +181,7 @@
               "subComponents": {},
               "config": {
                 "membership.attribute.type": [
-                  "UID"
+                  "DN"
                 ],
                 "group.name.ldap.attribute": [
                   "cn"
@@ -202,10 +202,10 @@
                   "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE"
                 ],
                 "groups.ldap.filter": [
-                  "(cn=jenkins_admins)"
+                  ""
                 ],
                 "membership.ldap.attribute": [
-                  "memberuid"
+                  "member"
                 ],
                 "ignore.missing.groups": [
                   "false"
@@ -214,7 +214,57 @@
                   "memberOf"
                 ],
                 "group.object.classes": [
-                  "posixGroup"
+                  "groupOfNames"
+                ],
+                "drop.non.existing.groups.during.sync": [
+                  "false"
+                ],
+                "groups.path": [
+                  "/"
+                ]
+              }
+            },
+            {
+              "id": "209ff0f2-9982-45d6-ab7d-9175c9653c4f",
+              "name": "jenkins_users",
+              "providerId": "group-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "membership.attribute.type": [
+                  "DN"
+                ],
+                "group.name.ldap.attribute": [
+                  "cn"
+                ],
+                "preserve.group.inheritance": [
+                  "false"
+                ],
+                "membership.user.ldap.attribute": [
+                  "uid"
+                ],
+                "groups.dn": [
+                  "ou=groups,dc=example,dc=org"
+                ],
+                "mode": [
+                  "LDAP_ONLY"
+                ],
+                "user.roles.retrieve.strategy": [
+                  "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE"
+                ],
+                "groups.ldap.filter": [
+                  ""
+                ],
+                "membership.ldap.attribute": [
+                  "member"
+                ],
+                "ignore.missing.groups": [
+                  "false"
+                ],
+                "memberof.ldap.attribute": [
+                  "memberOf"
+                ],
+                "group.object.classes": [
+                  "groupOfNames"
                 ],
                 "drop.non.existing.groups.during.sync": [
                   "false"

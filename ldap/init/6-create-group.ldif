@@ -1,0 +1,17 @@
+dn: ou=groups,dc=example,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+description: all groups
+
+dn: cn=jenkins_admins,ou=groups,dc=example,dc=org
+cn: jenkins_admins
+objectClass: top
+objectClass: groupOfNames
+member: uid=demo,ou=users,dc=example,dc=org
+
+dn: cn=jenkins_users,ou=groups,dc=example,dc=org
+cn: jenkins_users
+objectClass: top
+objectClass: groupOfNames
+member: uid=demo,ou=users,dc=example,dc=org

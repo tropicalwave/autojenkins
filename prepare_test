@@ -37,7 +37,7 @@ JENKINS_CLIENT_SECRET=${KEYCLOAK_JENKINS_SECRET}
 GITEA_CLIENT_SECRET=${KEYCLOAK_GITEA_SECRET}
 EOF
 
-cat >ldap/init/6-create-user.ldif <<EOF
+cat >ldap/init/5-create-user.ldif <<EOF
 dn: ou=users,dc=example,dc=org
 objectclass: top
 objectclass: organizationalUnit
