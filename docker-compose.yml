@@ -56,7 +56,8 @@ services:
       GITEA_DB_PASSWORD: "${GITEA_DB_PASSWORD}"
       KEYCLOAK_DB_PASSWORD: "${KEYCLOAK_DB_PASSWORD}"
       POSTGRES_HOST_AUTH_METHOD: scram-sha-256
-      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+      POSTGRES_INITDB_ARGS: >
+        --auth-host=scram-sha-256 --auth-local=scram-sha-256
     security_opt:
       - label=disable
     volumes:

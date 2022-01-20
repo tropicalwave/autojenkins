@@ -62,8 +62,8 @@ jenkins:
 security:
   queueItemAuthenticator:
     authenticators:
-    - global:
-        strategy: "triggeringUsersAuthorizationStrategy"
+      - global:
+          strategy: "triggeringUsersAuthorizationStrategy"
 
 credentials:
   system:
