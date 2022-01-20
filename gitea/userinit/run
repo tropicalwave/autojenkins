@@ -14,7 +14,7 @@ if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ 
         gitea admin auth add-ldap \
             --name ldap \
             --security-protocol unencrypted \
-            --host localhost \
+            --host ldap \
             --port 389 \
             --user-search-base "ou=users,dc=example,dc=org" \
             --user-filter "(&(objectClass=inetOrgPerson)(uid=%s))" \

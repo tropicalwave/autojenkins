@@ -1832,7 +1832,7 @@
             "entryUUID"
           ],
           "connectionUrl": [
-            "ldap://localhost:389"
+            "ldap://ldap:389"
           ],
           "allowKerberosAuthentication": [
             "false"

@@ -8,8 +8,8 @@ jenkins:
       clientId: jenkins
       clientSecret: ${KEYCLOAK_JENKINS_SECRET}
       automanualconfigure: manual
-      tokenServerUrl: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/token"
-      userInfoServerUrl: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/userinfo"
+      tokenServerUrl: "http://keycloak:8080/auth/realms/ci/protocol/openid-connect/token"
+      userInfoServerUrl: "http://keycloak:8080/auth/realms/ci/protocol/openid-connect/userinfo"
       authorizationServerUrl: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/auth"
       endSessionEndpoint: "http://localhost:8080/auth/realms/ci/protocol/openid-connect/logout"
       postLogoutRedirectUrl: "http://localhost:4040"
@@ -91,4 +91,4 @@ unclassified:
       - credentialsId: "gitea-login"
         displayName: "mygitea"
         manageHooks: true
-        serverUrl: "http://localhost:3000"
+        serverUrl: "http://gitea:3000"

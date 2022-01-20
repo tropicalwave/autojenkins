@@ -38,7 +38,7 @@ services:
       RUN_MODE: "prod"
       DISABLE_REGISTRATION: "true"
       INSTALL_LOCK: "true"
-      KEYCLOAK_URL: "http://localhost:8080"
+      KEYCLOAK_URL: "http://keycloak:8080"
       KEYCLOAK_GITEA_SECRET: "${GITEA_CLIENT_SECRET}"
     ports:
       - "3000:3000"
@@ -80,6 +80,7 @@ services:
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
       KEYCLOAK_JENKINS_SECRET: "${JENKINS_CLIENT_SECRET}"
       KEYCLOAK_GITEA_SECRET: "${GITEA_CLIENT_SECRET}"
+      KEYCLOAK_FRONTEND_URL: "http://localhost:8080/auth"
       LDAP_BIND_CREDENTIAL: "${LDAP_ADMIN_PASSWORD}"
       DB_VENDOR: postgres
       DB_ADDR: db
