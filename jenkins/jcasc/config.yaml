@@ -92,3 +92,4 @@ unclassified:
         displayName: "mygitea"
         manageHooks: true
         serverUrl: "http://gitea:3000"
+        aliasUrl: "http://localhost:3000"

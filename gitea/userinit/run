@@ -73,6 +73,10 @@ EOF
             popd || exit
         done
 
+        while ! curl -f http://jenkins:4040/ ; do
+            sleep 1
+        done
+
         curl -f -X POST "$GITEA_URL/api/v1/orgs/home/hooks?token=$TOKEN" "${DEFAULT_CURL_PARAMETERS[@]}" \
             -d "{\"active\": true, \"type\": \"gitea\", \"config\": \
                 { \"url\": \"http://jenkins:4040/gitea-webhook/post\", \"content_type\": \"json\" } }"
