@@ -40,16 +40,15 @@ after the initial execution of `./prepare_test`):
 ### Developing Keycloak themes
 
 This project uses a customized Keycloak registration form. The interactive
-development of Keycloak themes needs disabling Keycloak's themes cache. Attach
-to the Keycloak container and execute the following commands to disable it:
+development of Keycloak themes needs disabling Keycloak's themes cache.
+Therefore, you need to add the following lines to the configuration
+file `/opt/keycloak/conf/keycloak.conf` in the Keycloak container
+and restart it:
 
 ```bash
-/opt/jboss/keycloak/bin/jboss-cli.sh
-connect
-/subsystem=keycloak-server/theme=defaults/:write-attribute(name=cacheThemes,value=false)
-/subsystem=keycloak-server/theme=defaults/:write-attribute(name=cacheTemplates,value=false)
-/subsystem=keycloak-server/theme=defaults/:write-attribute(name=staticMaxAge,value=-1)
-reload
+%dev.spi-theme-cache-themes=false
+%dev.spi-theme-cache-templates=false
+%dev.spi-theme-static-max-age=-1
 ```
 
 ### Checking LDAP users

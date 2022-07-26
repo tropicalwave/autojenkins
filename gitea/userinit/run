@@ -87,7 +87,7 @@ EOF
         sleep 1
     done
 
-    su-exec "$USER" gitea admin auth add-oauth --name keycloak --provider openidConnect --key gitea --secret "$KEYCLOAK_GITEA_SECRET" --auto-discover-url "$KEYCLOAK_URL/auth/realms/ci/.well-known/openid-configuration"
+    su-exec "$USER" gitea admin auth add-oauth --name keycloak --provider openidConnect --key gitea --secret "$KEYCLOAK_GITEA_SECRET" --auto-discover-url "$KEYCLOAK_URL/realms/ci/.well-known/openid-configuration"
     echo 'Initialized everything.' >>/tmp/init.log
 fi
 

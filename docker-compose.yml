@@ -50,7 +50,7 @@ services:
       - ldap
 
   db:
-    image: postgres:14.2
+    image: postgres:14.4
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
@@ -76,17 +76,19 @@ services:
     build:
       context: keycloak/
     environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
       KEYCLOAK_JENKINS_SECRET: "${JENKINS_CLIENT_SECRET}"
       KEYCLOAK_GITEA_SECRET: "${GITEA_CLIENT_SECRET}"
-      KEYCLOAK_FRONTEND_URL: "http://localhost:8080/auth"
       LDAP_BIND_CREDENTIAL: "${LDAP_ADMIN_PASSWORD}"
       KC_DB: postgres
-      KC_DB_URL: db
+      KC_DB_URL_HOST: db
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: "${KEYCLOAK_DB_PASSWORD}"
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HOSTNAME_STRICT: false
+      KC_PROXY: edge
     ports:
       - "8080:8080"
     depends_on:
