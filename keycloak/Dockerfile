@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:18.0.2
+FROM quay.io/keycloak/keycloak:19.0.3
 USER root
 RUN microdnf install unzip -y && \
     microdnf clean all
@@ -6,7 +6,7 @@ USER keycloak
 RUN mkdir /opt/keycloak/themes/custom/ && \
     mkdir /tmp/tmp && \
     cd /tmp/tmp && \
-    unzip /opt/keycloak/lib/lib/main/org.keycloak.keycloak-themes-18.0.2.jar && \
+    unzip /opt/keycloak/lib/lib/main/org.keycloak.keycloak-themes-19.0.3.jar && \
     cp -r /tmp/tmp/theme/keycloak/login/ /opt/keycloak/themes/custom/ && \
     cd .. && \
     rm -rf /tmp/tmp
