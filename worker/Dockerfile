@@ -1,4 +1,5 @@
-FROM fedora:36
+ARG FEDORA_VERSION
+FROM fedora:$FEDORA_VERSION
 
 RUN dnf install -y openssh-server \
     java-latest-openjdk-headless \

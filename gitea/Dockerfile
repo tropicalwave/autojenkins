@@ -1,3 +1,4 @@
-FROM gitea/gitea:1.17.2
+ARG VERSION
+FROM gitea/gitea:$VERSION
 
 COPY userinit /etc/s6/userinit
