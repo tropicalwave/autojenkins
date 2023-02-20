@@ -6,7 +6,7 @@ services:
     build:
       context: jenkins/
       args:
-        VERSION: 2.375.1-lts-alpine
+        VERSION: 2.375.3-lts-alpine
     ports:
       - "4040:4040"
     depends_on:
@@ -29,7 +29,7 @@ services:
     build:
       context: gitea/
       args:
-        VERSION: 1.17.3
+        VERSION: 1.18.4
     environment:
       DB_TYPE: postgres
       DB_HOST: db:5432
@@ -56,7 +56,7 @@ services:
       - ldap
 
   db:
-    image: postgres:14.6-alpine
+    image: postgres:14.7-alpine
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
@@ -82,7 +82,7 @@ services:
     build:
       context: keycloak/
       args:
-        VERSION: 20.0.2
+        VERSION: 20.0.3
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
