@@ -24,12 +24,16 @@ services:
       context: worker/
       args:
         FEDORA_VERSION: 37
+    cap_add:
+      - SYS_CHROOT
 
   gitea:
     build:
       context: gitea/
       args:
         VERSION: 1.18.4
+    cap_add:
+      - SYS_CHROOT
     environment:
       DB_TYPE: postgres
       DB_HOST: db:5432
