@@ -86,7 +86,7 @@ services:
     build:
       context: keycloak/
       args:
-        VERSION: 21.0.2
+        VERSION: 21.1.2
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"

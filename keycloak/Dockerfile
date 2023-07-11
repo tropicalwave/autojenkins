@@ -1,10 +1,12 @@
+FROM registry.access.redhat.com/ubi9 AS ubi-micro-build
+RUN mkdir -p /mnt/rootfs
+RUN dnf install --installroot /mnt/rootfs unzip --releasever 9 --setopt install_weak_deps=false --nodocs -y && \
+    dnf --installroot /mnt/rootfs clean all
+
 ARG VERSION
 FROM quay.io/keycloak/keycloak:$VERSION
+COPY --from=ubi-micro-build /mnt/rootfs/usr /usr
 ARG VERSION
-USER root
-RUN microdnf install unzip -y && \
-    microdnf clean all
-USER keycloak
 RUN mkdir /opt/keycloak/themes/custom/ && \
     mkdir /tmp/tmp && \
     cd /tmp/tmp && \
