@@ -27,23 +27,23 @@ jenkins:
             description: "Jenkins administrators"
             permissions:
               - "Overall/Administer"
-            assignments:
-              - "jenkins_admins"
+            entries:
+              - group: "jenkins_admins"
           - name: "build"
             description: "Jenkins users"
             permissions:
               - "Overall/Read"
               - "Job/Read"
               - "Job/Build"
-            assignments:
-              - "authenticated"
+            entries:
+              - group: "authenticated"
           - name: "readonly"
             description: "Read-only users"
             permissions:
               - "Overall/Read"
               - "Job/Read"
-            assignments:
-              - "anonymous"
+            entries:
+              - group: "anonymous"
 
   numExecutors: 0
   nodes:

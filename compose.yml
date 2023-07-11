@@ -6,7 +6,7 @@ services:
     build:
       context: jenkins/
       args:
-        VERSION: 2.387.1-lts-alpine
+        VERSION: 2.401.2-lts-alpine
     ports:
       - "4040:4040"
     depends_on:
@@ -23,7 +23,7 @@ services:
     build:
       context: worker/
       args:
-        FEDORA_VERSION: 37
+        FEDORA_VERSION: 38
     cap_add:
       - SYS_CHROOT
 
@@ -60,7 +60,7 @@ services:
       - ldap
 
   db:
-    image: postgres:14.7-alpine
+    image: postgres:14.8-alpine
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
