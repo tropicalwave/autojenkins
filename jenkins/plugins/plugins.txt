@@ -4,7 +4,6 @@ command-launcher
 configuration-as-code
 git
 gitea
-greenballs
 jdk-tool
 job-dsl
 oic-auth
