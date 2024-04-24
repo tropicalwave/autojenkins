@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ ! -e .initialized ]] ; then
+if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ ! -e .initialized ]]; then
     GITEA_URL="http://localhost:3000"
     while true; do
         STATUS_CODE=$(curl -LI "$GITEA_URL" -o /dev/null -w '%{http_code}\n' -s)
@@ -9,8 +9,7 @@ if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ 
         sleep 1
     done
 
-    if su-exec "$USER" gitea admin user create --admin --username gitea --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log
-    then
+    if su-exec "$USER" gitea admin user create --admin --username gitea --password "$GITEA_PASSWORD" --email me@localhost >/tmp/init.log; then
         su-exec "$USER" gitea admin auth add-ldap \
             --name ldap \
             --security-protocol unencrypted \
@@ -38,7 +37,7 @@ if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ 
         ssh-keygen -f "$HOME/.ssh/id_rsa" -N ''
         PUBLIC_SSH_KEY="$(cat "$HOME/.ssh/id_rsa.pub")"
 
-        cat > "$HOME/.ssh/config" <<EOF
+        cat >"$HOME/.ssh/config" <<EOF
 Host localhost
   StrictHostKeyChecking=no
 EOF
@@ -70,7 +69,7 @@ EOF
             popd || exit
         done
 
-        while ! curl -f http://jenkins:4040/ ; do
+        while ! curl -f http://jenkins:4040/; do
             sleep 1
         done
 
@@ -80,7 +79,7 @@ EOF
     fi
 
     echo 'Waiting for Keycloak to get ready.' >>/tmp/init.log
-    while ! curl -f "$KEYCLOAK_URL" ; do
+    while ! curl -f "$KEYCLOAK_URL"; do
         sleep 1
     done
 
