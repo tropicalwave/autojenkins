@@ -37,10 +37,12 @@ if [[ "$GITEA_PASSWORD" && "$LDAP_BIND_CREDENTIAL" && "$USER_PASSWORD" ]] && [[ 
         ssh-keygen -f "$HOME/.ssh/id_rsa" -N ''
         PUBLIC_SSH_KEY="$(cat "$HOME/.ssh/id_rsa.pub")"
 
+        # editorconfig-checker-disable
         cat >"$HOME/.ssh/config" <<EOF
 Host localhost
   StrictHostKeyChecking=no
 EOF
+        # editorconfig-checker-enable
 
         for repo in "test" "test2"; do
             curl -f -X POST "$GITEA_URL/api/v1/repos/home/$repo/keys" "${DEFAULT_CURL_PARAMETERS[@]}" \
