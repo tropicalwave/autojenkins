@@ -10,7 +10,7 @@ LDAP and Keycloak using Podman.
 ## Quickstart
 
 ```bash
-./prepare_test
+./prepare_test.sh
 podman-compose up -d
 ```
 
@@ -29,7 +29,7 @@ initial repository scan on Jenkins (needs to be triggered manually),
 these repositories will run a Jenkinsfile pipeline after every commit.
 
 The following users are available (with auto-generated passwords shown
-after the initial execution of `./prepare_test`):
+after the initial execution of `./prepare_test.sh`):
 
 1. User `admin` on Keycloak (administrator)
 2. User `gitea` on Gitea (administrator)

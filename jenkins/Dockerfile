@@ -1,3 +1,5 @@
+# checkov:skip=CKV_DOCKER_2:healthcheck not enabled
+# checkov:skip=CKV_DOCKER_3:no user necessary
 ARG VERSION
 FROM jenkins/jenkins:$VERSION
 
