@@ -20,9 +20,9 @@ podman-compose up -d
 
 After starting the environment, three services will be accessible:
 
-1. *Keycloak* on <http://localhost:8080>
-2. *Jenkins* on <http://localhost:4040>
-3. *Gitea* on <http://localhost:3000>
+1. _Keycloak_ on <http://localhost:8080>
+2. _Jenkins_ on <http://localhost:4040>
+3. _Gitea_ on <http://localhost:3000>
 
 Two Gitea repositories will be configured automatically. After an
 initial repository scan on Jenkins (needs to be triggered manually),
@@ -54,6 +54,7 @@ and restart it:
 ### Checking LDAP users
 
 Attach to LDAP container and execute the following command:
+
 ```bash
 ldapsearch -b dc=example,dc=org -D cn=admin,dc=example,dc=org -w <ldap admin password>
 ```

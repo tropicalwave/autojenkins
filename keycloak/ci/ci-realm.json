@@ -68,15 +68,9 @@
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
-          "realm": [
-            "offline_access",
-            "uma_authorization"
-          ],
+          "realm": ["offline_access", "uma_authorization"],
           "client": {
-            "account": [
-              "manage-account",
-              "view-profile"
-            ]
+            "account": ["manage-account", "view-profile"]
           }
         },
         "clientRole": false,
@@ -103,9 +97,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "realm-management": [
-                "query-clients"
-              ]
+              "realm-management": ["query-clients"]
             }
           },
           "clientRole": true,
@@ -182,10 +174,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "realm-management": [
-                "query-users",
-                "query-groups"
-              ]
+              "realm-management": ["query-users", "query-groups"]
             }
           },
           "clientRole": true,
@@ -339,9 +328,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "account": [
-                "view-consent"
-              ]
+              "account": ["view-consent"]
             }
           },
           "clientRole": true,
@@ -364,9 +351,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "account": [
-                "manage-account-links"
-              ]
+              "account": ["manage-account-links"]
             }
           },
           "clientRole": true,
@@ -418,9 +403,7 @@
       "name": "jenkins_users",
       "path": "/jenkins_users",
       "attributes": {},
-      "realmRoles": [
-        "jenkins_users"
-      ],
+      "realmRoles": ["jenkins_users"],
       "clientRoles": {},
       "subGroups": []
     }
@@ -433,9 +416,7 @@
     "clientRole": false,
     "containerId": "02eb4b33-1ea9-4391-882c-53b4f80dc306"
   },
-  "requiredCredentials": [
-    "password"
-  ],
+  "requiredCredentials": ["password"],
   "passwordPolicy": "length(8) and specialChars(1) and digits(1) and upperCase(1) and lowerCase(1) and notUsername(undefined) and notEmail(undefined)",
   "otpPolicyType": "totp",
   "otpPolicyAlgorithm": "HmacSHA1",
@@ -443,14 +424,9 @@
   "otpPolicyDigits": 6,
   "otpPolicyLookAheadWindow": 1,
   "otpPolicyPeriod": 30,
-  "otpSupportedApplications": [
-    "FreeOTP",
-    "Google Authenticator"
-  ],
+  "otpSupportedApplications": ["FreeOTP", "Google Authenticator"],
   "webAuthnPolicyRpEntityName": "keycloak",
-  "webAuthnPolicySignatureAlgorithms": [
-    "ES256"
-  ],
+  "webAuthnPolicySignatureAlgorithms": ["ES256"],
   "webAuthnPolicyRpId": "",
   "webAuthnPolicyAttestationConveyancePreference": "not specified",
   "webAuthnPolicyAuthenticatorAttachment": "not specified",
@@ -460,9 +436,7 @@
   "webAuthnPolicyAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyAcceptableAaguids": [],
   "webAuthnPolicyPasswordlessRpEntityName": "keycloak",
-  "webAuthnPolicyPasswordlessSignatureAlgorithms": [
-    "ES256"
-  ],
+  "webAuthnPolicyPasswordlessSignatureAlgorithms": ["ES256"],
   "webAuthnPolicyPasswordlessRpId": "",
   "webAuthnPolicyPasswordlessAttestationConveyancePreference": "not specified",
   "webAuthnPolicyPasswordlessAuthenticatorAttachment": "not specified",
@@ -474,24 +448,18 @@
   "scopeMappings": [
     {
       "clientScope": "offline_access",
-      "roles": [
-        "offline_access"
-      ]
+      "roles": ["offline_access"]
     }
   ],
   "clientScopeMappings": {
     "account": [
       {
         "client": "account-console",
-        "roles": [
-          "manage-account"
-        ]
+        "roles": ["manage-account"]
       },
       {
         "client": "jenkins",
-        "roles": [
-          "view-profile"
-        ]
+        "roles": ["view-profile"]
       }
     ]
   },
@@ -506,9 +474,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "redirectUris": [
-        "/realms/ci/account/*"
-      ],
+      "redirectUris": ["/realms/ci/account/*"],
       "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
@@ -524,12 +490,7 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -547,9 +508,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "redirectUris": [
-        "/realms/ci/account/*"
-      ],
+      "redirectUris": ["/realms/ci/account/*"],
       "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
@@ -577,12 +536,7 @@
           "config": {}
         }
       ],
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -614,12 +568,7 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -651,12 +600,7 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -674,12 +618,8 @@
       "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "${KEYCLOAK_GITEA_SECRET}",
-      "redirectUris": [
-        "http://localhost:3000/*"
-      ],
-      "webOrigins": [
-        "http://localhost:3000/*"
-      ],
+      "redirectUris": ["http://localhost:3000/*"],
+      "webOrigins": ["http://localhost:3000/*"],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
@@ -694,12 +634,7 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -717,12 +652,8 @@
       "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "${KEYCLOAK_JENKINS_SECRET}",
-      "redirectUris": [
-        "http://localhost:4040/*"
-      ],
-      "webOrigins": [
-        "http://localhost:4040/*"
-      ],
+      "redirectUris": ["http://localhost:4040/*"],
+      "webOrigins": ["http://localhost:4040/*"],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
@@ -778,12 +709,7 @@
           }
         }
       ],
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -815,12 +741,7 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -838,12 +759,8 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "redirectUris": [
-        "/admin/ci/console/*"
-      ],
-      "webOrigins": [
-        "+"
-      ],
+      "redirectUris": ["/admin/ci/console/*"],
+      "webOrigins": ["+"],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
@@ -877,12 +794,7 @@
           }
         }
       ],
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
       "optionalClientScopes": [
         "address",
         "phone",
@@ -1426,9 +1338,7 @@
   "smtpServer": {},
   "loginTheme": "custom",
   "eventsEnabled": false,
-  "eventsListeners": [
-    "jboss-logging"
-  ],
+  "eventsListeners": ["jboss-logging"],
   "enabledEventTypes": [],
   "adminEventsEnabled": false,
   "adminEventsDetailsEnabled": false,
@@ -1443,9 +1353,7 @@
         "subType": "authenticated",
         "subComponents": {},
         "config": {
-          "allow-default-scopes": [
-            "true"
-          ]
+          "allow-default-scopes": ["true"]
         }
       },
       {
@@ -1455,9 +1363,7 @@
         "subType": "anonymous",
         "subComponents": {},
         "config": {
-          "max-clients": [
-            "200"
-          ]
+          "max-clients": ["200"]
         }
       },
       {
@@ -1494,9 +1400,7 @@
         "subType": "anonymous",
         "subComponents": {},
         "config": {
-          "allow-default-scopes": [
-            "true"
-          ]
+          "allow-default-scopes": ["true"]
         }
       },
       {
@@ -1506,12 +1410,8 @@
         "subType": "anonymous",
         "subComponents": {},
         "config": {
-          "host-sending-registration-request-must-match": [
-            "true"
-          ],
-          "client-uris-must-match": [
-            "true"
-          ]
+          "host-sending-registration-request-must-match": ["true"],
+          "client-uris-must-match": ["true"]
         }
       },
       {
@@ -1563,45 +1463,21 @@
               "providerId": "group-ldap-mapper",
               "subComponents": {},
               "config": {
-                "membership.attribute.type": [
-                  "DN"
-                ],
-                "group.name.ldap.attribute": [
-                  "cn"
-                ],
-                "membership.user.ldap.attribute": [
-                  "uid"
-                ],
-                "preserve.group.inheritance": [
-                  "false"
-                ],
-                "groups.dn": [
-                  "ou=groups,dc=example,dc=org"
-                ],
-                "mode": [
-                  "LDAP_ONLY"
-                ],
+                "membership.attribute.type": ["DN"],
+                "group.name.ldap.attribute": ["cn"],
+                "membership.user.ldap.attribute": ["uid"],
+                "preserve.group.inheritance": ["false"],
+                "groups.dn": ["ou=groups,dc=example,dc=org"],
+                "mode": ["LDAP_ONLY"],
                 "user.roles.retrieve.strategy": [
                   "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE"
                 ],
-                "membership.ldap.attribute": [
-                  "member"
-                ],
-                "ignore.missing.groups": [
-                  "false"
-                ],
-                "memberof.ldap.attribute": [
-                  "memberOf"
-                ],
-                "group.object.classes": [
-                  "groupOfNames"
-                ],
-                "groups.path": [
-                  "/"
-                ],
-                "drop.non.existing.groups.during.sync": [
-                  "false"
-                ]
+                "membership.ldap.attribute": ["member"],
+                "ignore.missing.groups": ["false"],
+                "memberof.ldap.attribute": ["memberOf"],
+                "group.object.classes": ["groupOfNames"],
+                "groups.path": ["/"],
+                "drop.non.existing.groups.during.sync": ["false"]
               }
             },
             {
@@ -1610,21 +1486,11 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "uid"
-                ],
-                "is.mandatory.in.ldap": [
-                  "true"
-                ],
-                "read.only": [
-                  "false"
-                ],
-                "always.read.value.from.ldap": [
-                  "false"
-                ],
-                "user.model.attribute": [
-                  "username"
-                ]
+                "ldap.attribute": ["uid"],
+                "is.mandatory.in.ldap": ["true"],
+                "read.only": ["false"],
+                "always.read.value.from.ldap": ["false"],
+                "user.model.attribute": ["username"]
               }
             },
             {
@@ -1633,21 +1499,11 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "mail"
-                ],
-                "is.mandatory.in.ldap": [
-                  "false"
-                ],
-                "always.read.value.from.ldap": [
-                  "false"
-                ],
-                "read.only": [
-                  "false"
-                ],
-                "user.model.attribute": [
-                  "email"
-                ]
+                "ldap.attribute": ["mail"],
+                "is.mandatory.in.ldap": ["false"],
+                "always.read.value.from.ldap": ["false"],
+                "read.only": ["false"],
+                "user.model.attribute": ["email"]
               }
             },
             {
@@ -1656,24 +1512,12 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "audio"
-                ],
-                "is.mandatory.in.ldap": [
-                  "false"
-                ],
-                "is.binary.attribute": [
-                  "false"
-                ],
-                "always.read.value.from.ldap": [
-                  "false"
-                ],
-                "read.only": [
-                  "false"
-                ],
-                "user.model.attribute": [
-                  "acceptedPrivacyPolicy"
-                ]
+                "ldap.attribute": ["audio"],
+                "is.mandatory.in.ldap": ["false"],
+                "is.binary.attribute": ["false"],
+                "always.read.value.from.ldap": ["false"],
+                "read.only": ["false"],
+                "user.model.attribute": ["acceptedPrivacyPolicy"]
               }
             },
             {
@@ -1682,21 +1526,11 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "createTimestamp"
-                ],
-                "is.mandatory.in.ldap": [
-                  "false"
-                ],
-                "read.only": [
-                  "true"
-                ],
-                "always.read.value.from.ldap": [
-                  "true"
-                ],
-                "user.model.attribute": [
-                  "createTimestamp"
-                ]
+                "ldap.attribute": ["createTimestamp"],
+                "is.mandatory.in.ldap": ["false"],
+                "read.only": ["true"],
+                "always.read.value.from.ldap": ["true"],
+                "user.model.attribute": ["createTimestamp"]
               }
             },
             {
@@ -1705,45 +1539,21 @@
               "providerId": "group-ldap-mapper",
               "subComponents": {},
               "config": {
-                "membership.attribute.type": [
-                  "DN"
-                ],
-                "group.name.ldap.attribute": [
-                  "cn"
-                ],
-                "membership.user.ldap.attribute": [
-                  "uid"
-                ],
-                "preserve.group.inheritance": [
-                  "false"
-                ],
-                "groups.dn": [
-                  "ou=groups,dc=example,dc=org"
-                ],
-                "mode": [
-                  "LDAP_ONLY"
-                ],
+                "membership.attribute.type": ["DN"],
+                "group.name.ldap.attribute": ["cn"],
+                "membership.user.ldap.attribute": ["uid"],
+                "preserve.group.inheritance": ["false"],
+                "groups.dn": ["ou=groups,dc=example,dc=org"],
+                "mode": ["LDAP_ONLY"],
                 "user.roles.retrieve.strategy": [
                   "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE"
                 ],
-                "ignore.missing.groups": [
-                  "false"
-                ],
-                "membership.ldap.attribute": [
-                  "member"
-                ],
-                "memberof.ldap.attribute": [
-                  "memberOf"
-                ],
-                "group.object.classes": [
-                  "groupOfNames"
-                ],
-                "drop.non.existing.groups.during.sync": [
-                  "false"
-                ],
-                "groups.path": [
-                  "/"
-                ]
+                "ignore.missing.groups": ["false"],
+                "membership.ldap.attribute": ["member"],
+                "memberof.ldap.attribute": ["memberOf"],
+                "group.object.classes": ["groupOfNames"],
+                "drop.non.existing.groups.during.sync": ["false"],
+                "groups.path": ["/"]
               }
             },
             {
@@ -1752,21 +1562,11 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "cn"
-                ],
-                "is.mandatory.in.ldap": [
-                  "true"
-                ],
-                "always.read.value.from.ldap": [
-                  "true"
-                ],
-                "read.only": [
-                  "false"
-                ],
-                "user.model.attribute": [
-                  "firstName"
-                ]
+                "ldap.attribute": ["cn"],
+                "is.mandatory.in.ldap": ["true"],
+                "always.read.value.from.ldap": ["true"],
+                "read.only": ["false"],
+                "user.model.attribute": ["firstName"]
               }
             },
             {
@@ -1775,21 +1575,11 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "sn"
-                ],
-                "is.mandatory.in.ldap": [
-                  "true"
-                ],
-                "read.only": [
-                  "false"
-                ],
-                "always.read.value.from.ldap": [
-                  "true"
-                ],
-                "user.model.attribute": [
-                  "lastName"
-                ]
+                "ldap.attribute": ["sn"],
+                "is.mandatory.in.ldap": ["true"],
+                "read.only": ["false"],
+                "always.read.value.from.ldap": ["true"],
+                "user.model.attribute": ["lastName"]
               }
             },
             {
@@ -1798,113 +1588,45 @@
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
-                "ldap.attribute": [
-                  "modifyTimestamp"
-                ],
-                "is.mandatory.in.ldap": [
-                  "false"
-                ],
-                "always.read.value.from.ldap": [
-                  "true"
-                ],
-                "read.only": [
-                  "true"
-                ],
-                "user.model.attribute": [
-                  "modifyTimestamp"
-                ]
+                "ldap.attribute": ["modifyTimestamp"],
+                "is.mandatory.in.ldap": ["false"],
+                "always.read.value.from.ldap": ["true"],
+                "read.only": ["true"],
+                "user.model.attribute": ["modifyTimestamp"]
               }
             }
           ]
         },
         "config": {
-          "pagination": [
-            "true"
-          ],
-          "fullSyncPeriod": [
-            "-1"
-          ],
-          "connectionPooling": [
-            "true"
-          ],
-          "usersDn": [
-            "ou=users,dc=example,dc=org"
-          ],
-          "cachePolicy": [
-            "DEFAULT"
-          ],
-          "useKerberosForPasswordAuthentication": [
-            "false"
-          ],
-          "importEnabled": [
-            "true"
-          ],
-          "enabled": [
-            "true"
-          ],
-          "changedSyncPeriod": [
-            "60"
-          ],
-          "bindDn": [
-            "cn=admin,dc=example,dc=org"
-          ],
-          "bindCredential": [
-            "${LDAP_BIND_CREDENTIAL}"
-          ],
-          "usernameLDAPAttribute": [
-            "uid"
-          ],
-          "lastSync": [
-            "1658822220"
-          ],
-          "vendor": [
-            "other"
-          ],
-          "uuidLDAPAttribute": [
-            "entryUUID"
-          ],
-          "allowKerberosAuthentication": [
-            "false"
-          ],
-          "connectionUrl": [
-            "ldap://ldap:389"
-          ],
-          "syncRegistrations": [
-            "true"
-          ],
-          "authType": [
-            "simple"
-          ],
-          "debug": [
-            "false"
-          ],
-          "searchScope": [
-            "1"
-          ],
-          "useTruststoreSpi": [
-            "ldapsOnly"
-          ],
-          "trustEmail": [
-            "false"
-          ],
-          "priority": [
-            "0"
-          ],
-          "userObjectClasses": [
-            "inetOrgPerson, organizationalPerson"
-          ],
-          "rdnLDAPAttribute": [
-            "uid"
-          ],
-          "editMode": [
-            "WRITABLE"
-          ],
-          "validatePasswordPolicy": [
-            "true"
-          ],
-          "batchSizeForSync": [
-            "1000"
-          ]
+          "pagination": ["true"],
+          "fullSyncPeriod": ["-1"],
+          "connectionPooling": ["true"],
+          "usersDn": ["ou=users,dc=example,dc=org"],
+          "cachePolicy": ["DEFAULT"],
+          "useKerberosForPasswordAuthentication": ["false"],
+          "importEnabled": ["true"],
+          "enabled": ["true"],
+          "changedSyncPeriod": ["60"],
+          "bindDn": ["cn=admin,dc=example,dc=org"],
+          "bindCredential": ["${LDAP_BIND_CREDENTIAL}"],
+          "usernameLDAPAttribute": ["uid"],
+          "lastSync": ["1658822220"],
+          "vendor": ["other"],
+          "uuidLDAPAttribute": ["entryUUID"],
+          "allowKerberosAuthentication": ["false"],
+          "connectionUrl": ["ldap://ldap:389"],
+          "syncRegistrations": ["true"],
+          "authType": ["simple"],
+          "debug": ["false"],
+          "searchScope": ["1"],
+          "useTruststoreSpi": ["ldapsOnly"],
+          "trustEmail": ["false"],
+          "priority": ["0"],
+          "userObjectClasses": ["inetOrgPerson, organizationalPerson"],
+          "rdnLDAPAttribute": ["uid"],
+          "editMode": ["WRITABLE"],
+          "validatePasswordPolicy": ["true"],
+          "batchSizeForSync": ["1000"]
         }
       }
     ],
@@ -1915,9 +1637,7 @@
         "providerId": "rsa-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ]
+          "priority": ["100"]
         }
       },
       {
@@ -1926,12 +1646,8 @@
         "providerId": "hmac-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ],
-          "algorithm": [
-            "HS256"
-          ]
+          "priority": ["100"],
+          "algorithm": ["HS256"]
         }
       },
       {
@@ -1940,9 +1656,7 @@
         "providerId": "rsa-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ]
+          "priority": ["100"]
         }
       },
       {
@@ -1951,9 +1665,7 @@
         "providerId": "aes-generated",
         "subComponents": {},
         "config": {
-          "priority": [
-            "100"
-          ]
+          "priority": ["100"]
         }
       }
     ]

@@ -7,18 +7,19 @@ jenkins:
     oic:
       clientId: jenkins
       clientSecret: ${KEYCLOAK_JENKINS_SECRET}
-      automanualconfigure: manual
-      tokenServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/token"
-      userInfoServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/userinfo"
-      authorizationServerUrl: "http://localhost:8080/realms/ci/protocol/openid-connect/auth"
-      endSessionEndpoint: "http://localhost:8080/realms/ci/protocol/openid-connect/logout"
       postLogoutRedirectUrl: "http://localhost:4040"
       logoutFromOpenidProvider: true
       userNameField: preferred_username
       fullNameFieldName: fullName
       groupsFieldName: groups
       emailFieldName: email
-      scopes: openid email
+      serverConfiguration:
+        manual:
+          tokenServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/token"
+          userInfoServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/userinfo"
+          authorizationServerUrl: "http://localhost:8080/realms/ci/protocol/openid-connect/auth"
+          endSessionUrl: "http://localhost:8080/realms/ci/protocol/openid-connect/logout"
+          scopes: openid email
   authorizationStrategy:
     roleBased:
       roles:
