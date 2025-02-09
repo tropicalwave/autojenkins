@@ -13,8 +13,11 @@ jenkins:
       fullNameFieldName: fullName
       groupsFieldName: groups
       emailFieldName: email
+      disableTokenVerification: true
       serverConfiguration:
         manual:
+          issuer: "http://keycloak:8080/realms/ci"
+          jwksServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/certs"
           tokenServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/token"
           userInfoServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/userinfo"
           authorizationServerUrl: "http://localhost:8080/realms/ci/protocol/openid-connect/auth"
