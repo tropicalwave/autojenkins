@@ -91,6 +91,6 @@ fi
 
 touch .initialized
 
-while true; do
-    sleep 3600
-done
+# forward requests to Keycloak (the well-known URL provides localhost:8080
+# as endpoint, but we have to use keycloak:8080 instead)
+socat TCP-LISTEN:8080,bind=localhost,fork TCP:keycloak:8080

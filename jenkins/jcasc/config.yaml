@@ -18,6 +18,7 @@ jenkins:
         manual:
           issuer: "http://keycloak:8080/realms/ci"
           jwksServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/certs"
+          # checkov:skip=CKV_SECRET_6:false positive
           tokenServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/token"
           userInfoServerUrl: "http://keycloak:8080/realms/ci/protocol/openid-connect/userinfo"
           authorizationServerUrl: "http://localhost:8080/realms/ci/protocol/openid-connect/auth"

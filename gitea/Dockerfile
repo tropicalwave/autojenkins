@@ -2,6 +2,7 @@
 # checkov:skip=CKV_DOCKER_3:no user necessary
 ARG VERSION
 FROM gitea/gitea:$VERSION
+RUN apk --no-cache add socat
 
 COPY userinit/finish.sh /etc/s6/userinit/finish
 COPY userinit/run.sh /etc/s6/userinit/run

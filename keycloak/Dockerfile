@@ -22,4 +22,4 @@ COPY ci/ci-realm.json /opt/keycloak/data/import/
 COPY register.ftl /opt/keycloak/themes/custom/login/
 RUN /opt/keycloak/bin/kc.sh build --db=postgres
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh","start","--import-realm"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh","start-dev","--import-realm","--http-enabled=true","--hostname-strict=false"]

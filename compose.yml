@@ -86,10 +86,10 @@ services:
     build:
       context: keycloak/
       args:
-        VERSION: 22.0.5
+        VERSION: 26.1.2
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
       KEYCLOAK_IMPORT: /tmp/ci-realm.json
       KEYCLOAK_JENKINS_SECRET: "${JENKINS_CLIENT_SECRET}"
       KEYCLOAK_GITEA_SECRET: "${GITEA_CLIENT_SECRET}"
