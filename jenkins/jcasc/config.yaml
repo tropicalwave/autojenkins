@@ -13,7 +13,8 @@ jenkins:
       fullNameFieldName: fullName
       groupsFieldName: groups
       emailFieldName: email
-      disableTokenVerification: true
+      properties:
+      - "disableTokenVerification"
       serverConfiguration:
         manual:
           issuer: "http://keycloak:8080/realms/ci"
