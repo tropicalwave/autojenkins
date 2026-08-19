@@ -6,7 +6,7 @@ services:
     build:
       context: jenkins/
       args:
-        VERSION: 2.541.3-lts-alpine
+        VERSION: 2.568.2-lts-alpine
     ports:
       - "4040:4040"
     depends_on:
@@ -23,7 +23,7 @@ services:
     build:
       context: worker/
       args:
-        FEDORA_VERSION: 43
+        FEDORA_VERSION: 44
     cap_add:
       - SYS_CHROOT
 
@@ -31,7 +31,7 @@ services:
     build:
       context: gitea/
       args:
-        VERSION: 1.25.5
+        VERSION: 1.27.2
     cap_add:
       - SYS_CHROOT
     environment:
@@ -60,7 +60,7 @@ services:
       - ldap
 
   db:
-    image: postgres:14.22-alpine
+    image: postgres:14.24-alpine
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
@@ -86,7 +86,7 @@ services:
     build:
       context: keycloak/
       args:
-        VERSION: 26.5.7
+        VERSION: 26.7.2
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
